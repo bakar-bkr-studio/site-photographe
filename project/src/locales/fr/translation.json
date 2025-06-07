@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "portfolio": "Portfolio",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "home": {
+    "heroTitle": "Photographe et vidéaste à Meaux et Reims",
+    "heroSubtitle": "Je capture vos moments les plus précieux avec un style cinématographique unique",
+    "contactButton": "Me contacter",
+    "portfolioButton": "Voir mon portfolio",
+    "portfolioTitle": "Portfolio",
+    "portfolioSubtitle": "Découvrez une sélection de mes meilleures réalisations en photographie",
+    "viewMore": "Voir plus",
+    "viewAll": "Voir tout le portfolio",
+    "testimonialsTitle": "Ils me font confiance",
+    "testimonialsSubtitle": "Découvrez les retours d'expérience de mes clients",
+    "readyTitle": "Prêt à capturer vos moments ?",
+    "readySubtitle": "Contactez-moi pour discuter de votre projet et obtenir un devis personnalisé",
+    "footerRights": "Tous droits réservés.",
+    "footerLegal": "Mentions légales",
+    "footerPrivacy": "Politique de confidentialité"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Nous sommes là pour répondre à toutes vos questions",
+    "infoTitle": "Informations de contact",
+    "followTitle": "Suivez-nous",
+    "nameLabel": "Nom complet",
+    "emailLabel": "Email",
+    "subjectLabel": "Sujet",
+    "selectSubject": "Sélectionnez un sujet",
+    "subject": {
+      "wedding": "Mariage",
+      "portrait": "Portrait",
+      "event": "Événement",
+      "other": "Autre"
+    },
+    "messageLabel": "Message",
+    "sendButton": "Envoyer le message",
+    "sending": "Envoi en cours...",
+    "success": "Votre message a été envoyé avec succès !",
+    "error": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "booking": {
+    "reserve": "Réserver {{package}}",
+    "indicativePrice": "Prix indicatif : {{price}}",
+    "firstName": "Prénom *",
+    "lastName": "Nom *",
+    "email": "Email *",
+    "phone": "Téléphone *",
+    "date": "Date souhaitée *",
+    "message": "Message",
+    "messagePlaceholder": "Détails supplémentaires sur votre projet...",
+    "confirm": "Confirmer la réservation",
+    "sending": "Envoi en cours...",
+    "success": "Votre demande a été envoyée avec succès !",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "close": "Fermer"
+  }
+}

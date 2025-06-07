@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Camera, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState<'fr' | 'en'>('fr');
+  const { t, i18n } = useTranslation();
 
-  const menuItems = {
-    fr: [
-      { path: '/', label: 'Accueil' },
-      { path: '/about', label: 'À Propos' },
-      { path: '/portfolio', label: 'Portfolio' },
-      { path: '/services', label: 'Services' },
-      { path: '/blog', label: 'Blog' },
-      { path: '/contact', label: 'Contact' }
-    ],
-    en: [
-      { path: '/', label: 'Home' },
-      { path: '/about', label: 'About' },
-      { path: '/portfolio', label: 'Portfolio' },
-      { path: '/services', label: 'Services' },
-      { path: '/blog', label: 'Blog' },
-      { path: '/contact', label: 'Contact' }
-    ]
-  };
+  const menuItems = [
+    { path: '/', label: 'nav.home' },
+    { path: '/about', label: 'nav.about' },
+    { path: '/portfolio', label: 'nav.portfolio' },
+    { path: '/services', label: 'nav.services' },
+    { path: '/blog', label: 'nav.blog' },
+    { path: '/contact', label: 'nav.contact' }
+  ];
 
   return (
     <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
@@ -37,21 +28,21 @@ const Navigation = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            {menuItems[language].map((item) => (
+            {menuItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className="text-gray-700 hover:text-black transition-colors"
               >
-                {item.label}
+                {t(item.label)}
               </Link>
             ))}
             <button
-              onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
+              onClick={() => i18n.changeLanguage(i18n.language === 'fr' ? 'en' : 'fr')}
               className="flex items-center space-x-1 text-gray-700 hover:text-black"
             >
               <Globe className="h-4 w-4" />
-              <span>{language.toUpperCase()}</span>
+              <span>{i18n.language.toUpperCase()}</span>
             </button>
           </div>
 
@@ -70,25 +61,25 @@ const Navigation = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white">
-            {menuItems[language].map((item) => (
+            {menuItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className="block px-3 py-2 text-gray-700 hover:text-black"
                 onClick={() => setIsOpen(false)}
               >
-                {item.label}
+                {t(item.label)}
               </Link>
             ))}
             <button
               onClick={() => {
-                setLanguage(language === 'fr' ? 'en' : 'fr');
+                i18n.changeLanguage(i18n.language === 'fr' ? 'en' : 'fr');
                 setIsOpen(false);
               }}
               className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-black"
             >
               <Globe className="h-4 w-4" />
-              <span>{language.toUpperCase()}</span>
+              <span>{i18n.language.toUpperCase()}</span>
             </button>
           </div>
         </div>

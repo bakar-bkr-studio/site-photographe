@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "portfolio": "Portfolio",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "home": {
+    "heroTitle": "Photographer and videographer in Meaux and Reims",
+    "heroSubtitle": "I capture your most precious moments with a unique cinematic style",
+    "contactButton": "Contact me",
+    "portfolioButton": "View my portfolio",
+    "portfolioTitle": "Portfolio",
+    "portfolioSubtitle": "Discover a selection of my best work in photography",
+    "viewMore": "View more",
+    "viewAll": "View full portfolio",
+    "testimonialsTitle": "They trust me",
+    "testimonialsSubtitle": "Discover feedback from my clients",
+    "readyTitle": "Ready to capture your moments?",
+    "readySubtitle": "Contact me to discuss your project and get a personalized quote",
+    "footerRights": "All rights reserved.",
+    "footerLegal": "Legal notice",
+    "footerPrivacy": "Privacy policy"
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "We are here to answer all your questions",
+    "infoTitle": "Contact information",
+    "followTitle": "Follow us",
+    "nameLabel": "Full name",
+    "emailLabel": "Email",
+    "subjectLabel": "Subject",
+    "selectSubject": "Select a subject",
+    "subject": {
+      "wedding": "Wedding",
+      "portrait": "Portrait",
+      "event": "Event",
+      "other": "Other"
+    },
+    "messageLabel": "Message",
+    "sendButton": "Send message",
+    "sending": "Sending...",
+    "success": "Your message has been sent successfully!",
+    "error": "An error occurred. Please try again."
+  },
+  "booking": {
+    "reserve": "Book {{package}}",
+    "indicativePrice": "Indicative price: {{price}}",
+    "firstName": "First name *",
+    "lastName": "Last name *",
+    "email": "Email *",
+    "phone": "Phone *",
+    "date": "Desired date *",
+    "message": "Message",
+    "messagePlaceholder": "Additional details about your project...",
+    "confirm": "Confirm booking",
+    "sending": "Sending...",
+    "success": "Your request has been sent successfully!",
+    "error": "An error occurred. Please try again.",
+    "close": "Close"
+  }
+}

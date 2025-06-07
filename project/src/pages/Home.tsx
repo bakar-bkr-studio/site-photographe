@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ArrowDown, Instagram, Youtube, Phone, Mail, MapPin, Star, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
   const [ref, inView] = useInView({
@@ -11,6 +12,7 @@ const Home = () => {
   });
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const heroImage = 'https://i.imgur.com/ZPGdAaK.jpeg';
   
@@ -92,7 +94,7 @@ const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
-              Photographe et vidéaste à Meaux et Reims
+              {t('home.heroTitle')}
             </motion.h1>
             <motion.p
               className="text-xl text-white mb-8"
@@ -100,7 +102,7 @@ const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Je capture vos moments les plus précieux avec un style cinématographique unique
+              {t('home.heroSubtitle')}
             </motion.p>
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -112,13 +114,13 @@ const Home = () => {
                 onClick={() => navigate('/contact')}
                 className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors"
               >
-                Me contacter
+                {t('home.contactButton')}
               </button>
               <button
                 onClick={() => navigate('/portfolio')}
                 className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-medium hover:bg-white/10 transition-colors"
               >
-                Voir mon portfolio
+                {t('home.portfolioButton')}
               </button>
             </motion.div>
           </div>
@@ -143,9 +145,9 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Portfolio</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('home.portfolioTitle')}</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Découvrez une sélection de mes meilleures réalisations en photographie
+              {t('home.portfolioSubtitle')}
             </p>
           </motion.div>
 
@@ -169,7 +171,7 @@ const Home = () => {
                     onClick={() => navigate('/portfolio')}
                     className="px-4 py-2 border-2 border-white rounded-full hover:bg-white hover:text-black transition-colors"
                   >
-                    Voir plus
+                    {t('home.viewMore')}
                   </button>
                 </div>
               </motion.div>
@@ -181,7 +183,7 @@ const Home = () => {
               onClick={() => navigate('/portfolio')}
               className="inline-flex items-center gap-2 bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors"
             >
-              Voir tout le portfolio
+              {t('home.viewAll')}
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -197,9 +199,9 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Ils me font confiance</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('home.testimonialsTitle')}</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Découvrez les retours d'expérience de mes clients
+              {t('home.testimonialsSubtitle')}
             </p>
           </motion.div>
 
@@ -243,15 +245,15 @@ const Home = () => {
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl font-bold mb-6">Prêt à capturer vos moments ?</h2>
+            <h2 className="text-3xl font-bold mb-6">{t('home.readyTitle')}</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Contactez-moi pour discuter de votre projet et obtenir un devis personnalisé
+              {t('home.readySubtitle')}
             </p>
             <button
               onClick={() => navigate('/contact')}
               className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors"
             >
-              Me contacter
+              {t('home.contactButton')}
             </button>
           </motion.div>
         </div>
@@ -339,15 +341,15 @@ const Home = () => {
           
           <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
             <p className="text-sm">
-              © {new Date().getFullYear()} BKR Studio. Tous droits réservés.
+              © {new Date().getFullYear()} BKR Studio. {t('home.footerRights')}
             </p>
             <div className="mt-2 space-x-4 text-sm">
               <a href="/mentions-legales" className="hover:text-white transition-colors">
-                Mentions légales
+                {t('home.footerLegal')}
               </a>
               <span>|</span>
               <a href="/politique-confidentialite" className="hover:text-white transition-colors">
-                Politique de confidentialité
+                {t('home.footerPrivacy')}
               </a>
             </div>
           </div>
