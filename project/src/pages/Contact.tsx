@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Instagram } from 'lucide-react';
 import { trackEvent } from '../hooks/useAnalytics';
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ const Contact = () => {
       trackEvent('Contact', 'Succès envoi');
       setSubmitStatus({
         type: 'success',
-        message: 'Votre message a été envoyé avec succès !'
+        message: t('contact.success')
       });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
@@ -49,7 +51,7 @@ const Contact = () => {
       trackEvent('Contact', 'Erreur envoi');
       setSubmitStatus({
         type: 'error',
-        message: 'Une erreur est survenue. Veuillez réessayer.'
+        message: t('contact.error')
       });
     } finally {
       setIsSubmitting(false);
@@ -76,9 +78,9 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl font-bold mb-6">Contactez-nous</h1>
+          <h1 className="text-4xl font-bold mb-6">{t('contact.title')}</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Nous sommes là pour répondre à toutes vos questions
+            {t('contact.subtitle')}
           </p>
         </motion.div>
 
@@ -89,7 +91,7 @@ const Contact = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-2xl font-bold mb-8">Informations de contact</h2>
+            <h2 className="text-2xl font-bold mb-8">{t('contact.infoTitle')}</h2>
             <div className="space-y-6">
               <div className="flex items-center">
                 <Phone className="h-6 w-6 mr-4" />
@@ -106,7 +108,7 @@ const Contact = () => {
             </div>
 
             <div className="mt-12">
-              <h3 className="text-xl font-bold mb-6">Suivez-nous</h3>
+              <h3 className="text-xl font-bold mb-6">{t('contact.followTitle')}</h3>
               <div className="flex space-x-4">
                 <a 
                   href="https://www.instagram.com/bakar_tout_long?igsh=ZHJtNTdpczRvbXM4&utm_source=qr" 
@@ -138,7 +140,7 @@ const Contact = () => {
 
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                  Nom complet
+                  {t('contact.nameLabel')}
                 </label>
                 <input
                   type="text"
@@ -153,7 +155,7 @@ const Contact = () => {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
+                  {t('contact.emailLabel')}
                 </label>
                 <input
                   type="email"
@@ -168,7 +170,7 @@ const Contact = () => {
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                  Sujet
+                  {t('contact.subjectLabel')}
                 </label>
                 <select
                   id="subject"
@@ -178,17 +180,17 @@ const Contact = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
                 >
-                  <option value="">Sélectionnez un sujet</option>
-                  <option value="mariage">Mariage</option>
-                  <option value="portrait">Portrait</option>
-                  <option value="evenement">Événement</option>
-                  <option value="autre">Autre</option>
+                  <option value="">{t('contact.selectSubject')}</option>
+                  <option value="mariage">{t('contact.subject.wedding')}</option>
+                  <option value="portrait">{t('contact.subject.portrait')}</option>
+                  <option value="evenement">{t('contact.subject.event')}</option>
+                  <option value="autre">{t('contact.subject.other')}</option>
                 </select>
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message
+                  {t('contact.messageLabel')}
                 </label>
                 <textarea
                   id="message"
@@ -206,7 +208,7 @@ const Contact = () => {
                 disabled={isSubmitting}
                 className="w-full bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                {isSubmitting ? t('contact.sending') : t('contact.sendButton')}
               </button>
             </form>
           </motion.div>
