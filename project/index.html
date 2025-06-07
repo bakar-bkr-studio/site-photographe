@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BKR Studio - Photographe & Vidéaste à Meaux et Reims</title>
+    <meta name="description" content="Photographe et vidéaste professionnel à Meaux et Reims. Spécialisé en mariage, portrait, événementiel et corporate. Capturez vos moments précieux avec un style cinématographique unique." />
+    <meta name="keywords" content="photographe meaux, photographe reims, vidéaste, mariage, portrait, événementiel, corporate, photo professionnelle" />
+    <meta name="author" content="BKR Studio" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bkr-studio.com" />
+    <meta property="og:title" content="BKR Studio - Photographe & Vidéaste à Meaux et Reims" />
+    <meta property="og:description" content="Photographe et vidéaste professionnel à Meaux et Reims. Spécialisé en mariage, portrait, événementiel et corporate." />
+    <meta property="og:image" content="https://i.imgur.com/ZPGdAaK.jpeg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://bkr-studio.com" />
+    <meta name="twitter:title" content="BKR Studio - Photographe & Vidéaste à Meaux et Reims" />
+    <meta name="twitter:description" content="Photographe et vidéaste professionnel à Meaux et Reims. Spécialisé en mariage, portrait, événementiel et corporate." />
+    <meta name="twitter:image" content="https://i.imgur.com/ZPGdAaK.jpeg" />
+
+    <!-- Cookiebot -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="3e2b4d57-a830-4ab8-b169-827cae1168cd" type="text/javascript" async></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3XR7P69QX3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3XR7P69QX3');
+    </script>
+    
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
