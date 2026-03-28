@@ -5,13 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { trackEvent } from '../hooks/useAnalytics';
 
 const carouselImages = [
-  { id: '1', url: 'https://i.imgur.com/VT3ORx1.jpeg', title: 'Académie en action', category: 'Academy' },
-  { id: '2', url: 'https://i.imgur.com/EDWNki1.jpeg', title: 'Intensité du match', category: 'Matchday' },
-  { id: '3', url: 'https://i.imgur.com/REvU6Ra.jpeg', title: 'Ambiance stade', category: 'Atmosphère' },
-  { id: '4', url: 'https://i.imgur.com/j34Uwrg.jpeg', title: 'Portrait joueur', category: 'Portrait' },
-  { id: '5', url: 'https://i.imgur.com/qe2MoNG.jpeg', title: 'Cohésion d\'équipe', category: 'Matchday' },
-  { id: '6', url: 'https://i.imgur.com/OtiypZW.jpeg', title: 'Promotion du club', category: 'Branding' },
-  { id: '7', url: 'https://i.imgur.com/xV8tUz4.jpeg', title: 'Dans les vestiaires', category: 'Atmosphère' }
+  { id: '1', url: 'https://i.imgur.com/XLh5Die.jpeg', title: 'Action intense', category: 'Matchday' },
+  { id: '2', url: 'https://i.imgur.com/k1cPeJG.jpeg', title: 'Focus terrain', category: 'Matchday' },
+  { id: '3', url: 'https://i.imgur.com/ZWk9tSc.jpeg', title: 'Émotion du jeu', category: 'Matchday' },
+  { id: '4', url: 'https://i.imgur.com/kAYWLmo.jpeg', title: 'Performance athlétique', category: 'Matchday' },
+  { id: '5', url: 'https://i.imgur.com/vQL4RkK.jpeg', title: 'Détail technique', category: 'Matchday' },
+  { id: '6', url: 'https://i.imgur.com/EUaYSWn.jpeg', title: 'Célébration', category: 'Matchday' },
+  { id: '7', url: 'https://i.imgur.com/YtBZore.jpeg', title: 'Immersion totale', category: 'Matchday' },
+  { id: '8', url: 'https://i.imgur.com/zWBt3zr.jpeg', title: 'Esprit d\'équipe', category: 'Matchday' },
+  { id: '9', url: 'https://i.imgur.com/sFJ5FwJ.jpeg', title: 'Ambiance club', category: 'Atmosphère' },
+  { id: '10', url: 'https://i.imgur.com/LzFNFhx.jpeg', title: 'Passion football', category: 'Atmosphère' }
 ];
 
 export const HomeCarousel = () => {
