@@ -1,29 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Camera, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { trackEvent } from '../hooks/useAnalytics';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState<'fr' | 'en'>('fr');
 
-  const menuItems = {
-    fr: [
-      { path: '/', label: 'Accueil' },
-      { path: '/about', label: 'À Propos' },
-      { path: '/portfolio', label: 'Portfolio' },
-      { path: '/services', label: 'Services' },
-      { path: '/blog', label: 'Blog' },
-      { path: '/contact', label: 'Contact' }
-    ],
-    en: [
-      { path: '/', label: 'Home' },
-      { path: '/about', label: 'About' },
-      { path: '/portfolio', label: 'Portfolio' },
-      { path: '/services', label: 'Services' },
-      { path: '/blog', label: 'Blog' },
-      { path: '/contact', label: 'Contact' }
-    ]
-  };
+  const menuItems = [
+    { path: '/', label: 'Accueil' },
+    { path: '/about', label: 'À Propos' },
+    { path: '/portfolio', label: 'Portfolio' },
+    { path: '/services', label: 'Services' },
+    { path: '/blog', label: 'Blog' }
+  ];
 
   return (
     <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
@@ -31,28 +20,33 @@ const Navigation = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <Camera className="h-8 w-8" />
+              <img
+                src="https://i.imgur.com/hpQfzgY.png"
+                alt="BKR Studio Logo"
+                className="h-8 w-8 object-contain"
+              />
               <span className="font-bold text-xl">BKR Studio</span>
             </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            {menuItems[language].map((item) => (
+            {menuItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
+                onClick={() => trackEvent('Navigation', `Click ${item.label}`)}
                 className="text-gray-700 hover:text-black transition-colors"
               >
                 {item.label}
               </Link>
             ))}
-            <button
-              onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-              className="flex items-center space-x-1 text-gray-700 hover:text-black"
+            <Link
+              to="/contact"
+              onClick={() => trackEvent('Navigation', 'Click Contact CTA')}
+              className="bg-black text-white px-6 py-2.5 rounded-full font-medium hover:bg-gray-800 transition-transform hover:scale-105"
             >
-              <Globe className="h-4 w-4" />
-              <span>{language.toUpperCase()}</span>
-            </button>
+              Nous contacter
+            </Link>
           </div>
 
           <div className="md:hidden flex items-center">
@@ -70,26 +64,29 @@ const Navigation = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white">
-            {menuItems[language].map((item) => (
+            {menuItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className="block px-3 py-2 text-gray-700 hover:text-black"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  trackEvent('Navigation Mobile', `Click ${item.label}`);
+                  setIsOpen(false);
+                }}
               >
                 {item.label}
               </Link>
             ))}
-            <button
+            <Link
+              to="/contact"
               onClick={() => {
-                setLanguage(language === 'fr' ? 'en' : 'fr');
+                trackEvent('Navigation Mobile', 'Click Contact CTA');
                 setIsOpen(false);
               }}
-              className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-black"
+              className="block px-3 py-2 mt-4 text-center text-white bg-black font-semibold hover:bg-gray-800 rounded-lg mx-2"
             >
-              <Globe className="h-4 w-4" />
-              <span>{language.toUpperCase()}</span>
-            </button>
+              Nous contacter
+            </Link>
           </div>
         </div>
       )}

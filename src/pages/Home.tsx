@@ -1,8 +1,9 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ArrowDown, Instagram, Youtube, Phone, Mail, MapPin, ArrowRight, Film, Users, Zap } from 'lucide-react';
+import { ArrowDown, ArrowRight, Film, Users, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { trackEvent } from '../hooks/useAnalytics';
+import { HomeCarousel } from '../components/HomeCarousel';
 
 const Home = () => {
   const { ref: expertiseRef, inView: expertiseInView } = useInView({
@@ -22,7 +23,7 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const heroImage = 'https://i.imgur.com/irwFTuH.jpeg';
+  const heroImage = 'https://i.imgur.com/pfz6zqD.jpeg';
 
   const expertise = [
     {
@@ -45,21 +46,21 @@ const Home = () => {
   const testimonials = [
     {
       name: 'CS Meaux Academy',
-      image: 'https://i.imgur.com/VbD673J.jpeg',
+      image: 'https://upload.wikimedia.org/wikipedia/fr/a/ab/Logo_CS_Meaux_AF.svg',
       text: 'Un vrai professionnel qui comprend les enjeux du sport. Les contenus produits mettent parfaitement en valeur notre projet de club et nos jeunes talents.',
       rating: 5,
       event: 'Production football'
     },
     {
-      name: 'Ybengo Sport',
-      image: 'https://i.imgur.com/cusGwVF.jpeg',
+      name: 'Ibengo Sport',
+      image: 'https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/118721/--2.png',
       text: 'La qualité cinématographique de la couverture de notre saison a vraiment marqué les esprits. Un partenaire de confiance pour notre club.',
       rating: 5,
       event: 'Couverture saisonnière'
     },
     {
       name: 'Onegoal Academy',
-      image: 'https://i.imgur.com/BuP8W0m.jpeg',
+      image: 'https://onegoalshop.fr/cdn/shop/files/IMG_4488-removebg-preview.png?height=130&v=1763272482',
       text: 'Les vidéos promotionnelles réalisées nous ont permis d\'améliorer notre visibilité digitale et d\'attirer de nouveaux sponsors pour notre association sportive.',
       rating: 5,
       event: 'Branding & communication'
@@ -103,18 +104,23 @@ const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <button
-                onClick={() => navigate('/portfolio')}
-                className="bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-lg"
-              >
-                Voir nos projets
-              </button>
-              <button
-                onClick={() => navigate('/contact')}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => { trackEvent('Hero', 'Click Voir nos projets'); navigate('/portfolio'); }}
                 className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors text-lg"
               >
+                Voir nos projets
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => { trackEvent('Hero', 'Click Travailler ensemble'); navigate('/contact'); }}
+                className="bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-lg inline-flex items-center justify-center gap-2"
+              >
                 Travailler ensemble
-              </button>
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
             </motion.div>
           </div>
         </div>
@@ -145,6 +151,8 @@ const Home = () => {
         </div>
       </section>
 
+      <HomeCarousel />
+
       {/* Expertise Section */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4" ref={expertiseRef}>
@@ -169,7 +177,9 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={expertiseInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.15 }}
-                  className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-all"
                 >
                   <div className="w-14 h-14 bg-black rounded-lg flex items-center justify-center mb-6">
                     <IconComponent className="w-7 h-7 text-white" />
@@ -211,7 +221,9 @@ const Home = () => {
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    className="w-14 h-14 rounded-full object-cover mr-4"
+                    loading="lazy"
+                    decoding="async"
+                    className={`w-14 h-14 rounded-full object-cover mr-4 ${(testimonial.name === 'Onegoal Academy' || testimonial.name === 'Ibengo Sport' || testimonial.name === 'CS Meaux Academy') ? 'bg-black p-1' : ''}`}
                   />
                   <div>
                     <h3 className="font-bold text-lg">{testimonial.name}</h3>
@@ -237,106 +249,19 @@ const Home = () => {
             <p className="text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
               Discutons de votre projet de club et construisons ensemble une stratégie visuelle adaptée à vos ambitions.
             </p>
-            <button
-              onClick={() => navigate('/contact')}
-              className="bg-white text-black px-10 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-lg inline-flex items-center gap-2"
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => { trackEvent('Footer CTA', 'Click Travailler avec nous'); navigate('/contact'); }}
+              className="bg-white text-black px-10 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-lg inline-flex items-center justify-center gap-2"
             >
               Travailler avec nous
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </motion.button>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">BKR Studio</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Studio de création visuelle spécialisé dans la production football en Île-de-France.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold mb-4">Contact</h3>
-              <ul className="space-y-3 text-gray-400">
-                <li className="flex items-start">
-                  <Phone className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" />
-                  <span>+33 7 67 70 23 23</span>
-                </li>
-                <li className="flex items-start">
-                  <Mail className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" />
-                  <span>bkr.studio77@gmail.com</span>
-                </li>
-                <li className="flex items-start">
-                  <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Île-de-France</span>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold mb-4">Expertises</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="#expertises" className="hover:text-white transition-colors">
-                    Matchday Production
-                  </a>
-                </li>
-                <li>
-                  <a href="#expertises" className="hover:text-white transition-colors">
-                    Academy Immersion
-                  </a>
-                </li>
-                <li>
-                  <a href="#expertises" className="hover:text-white transition-colors">
-                    Club Branding & Social
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold mb-4">Suivez-nous</h3>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.instagram.com/bakar_tout_long?igsh=ZHJtNTdpczRvbXM4&utm_source=qr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.youtube.com/@BKR-STUDIO-Prod"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
-                >
-                  <Youtube className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
-            <p className="text-sm">
-              © {new Date().getFullYear()} BKR Studio. Tous droits réservés.
-            </p>
-            <div className="mt-4 space-x-4 text-sm">
-              <a href="/mentions-legales" className="hover:text-white transition-colors">
-                Mentions légales
-              </a>
-              <span>|</span>
-              <a href="/politique-confidentialite" className="hover:text-white transition-colors">
-                Politique de confidentialité
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

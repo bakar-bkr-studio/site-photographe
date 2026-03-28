@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Instagram } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Youtube } from 'lucide-react';
 import { trackEvent } from '../hooks/useAnalytics';
 
 const Contact = () => {
@@ -10,66 +10,42 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSubmitting) return;
-
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
-      trackEvent('Contact', 'Soumission formulaire');
+      const data = new URLSearchParams();
+      data.append('form-name', 'contact');
+      data.append('name', formData.name);
+      data.append('email', formData.email);
+      data.append('subject', formData.subject);
+      data.append('message', formData.message);
 
-      // Vérifier si les variables d'environnement Supabase sont configurées
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-      
-      if (!supabaseUrl || !supabaseKey || supabaseUrl.includes('your-project-ref') || supabaseKey.includes('your-anon-key')) {
-        // Mode démonstration - simuler un envoi réussi
-        console.log('Mode démonstration - Données du formulaire:', formData);
-        
-        // Simuler un délai d'envoi
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        trackEvent('Contact', 'Succès (Demo)');
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data.toString(),
+      });
+
+      if (response.ok) {
         setSubmitStatus({
           type: 'success',
-          message: 'Votre message a été envoyé avec succès ! (Mode démonstration)'
+          message: 'Votre message a bien été envoyé ! Nous vous répondrons dans les plus brefs délais.'
         });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        trackEvent('Contact', 'Formulaire envoyé');
       } else {
-        // Mode production avec Supabase configuré
-        const response = await fetch(`${supabaseUrl}/functions/v1/send-contact-email`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${supabaseKey}`,
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Erreur lors de l\'envoi du message');
-        }
-
-        trackEvent('Contact', 'Succès envoi');
-        setSubmitStatus({
-          type: 'success',
-          message: 'Votre message a été envoyé avec succès !'
-        });
+        throw new Error('Erreur réseau');
       }
-      
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      trackEvent('Contact', 'Erreur envoi');
+    } catch {
       setSubmitStatus({
         type: 'error',
-        message: error instanceof Error ? error.message : 'Une erreur est survenue. Veuillez réessayer.'
+        message: 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement par email.'
       });
     } finally {
       setIsSubmitting(false);
@@ -156,6 +132,15 @@ const Contact = () => {
                 >
                   <Instagram className="h-6 w-6" />
                 </a>
+                <a 
+                  href="https://www.youtube.com/@BKR-STUDIO-Prod" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-black"
+                  onClick={() => handleSocialClick('YouTube')}
+                >
+                  <Youtube className="h-6 w-6" />
+                </a>
               </div>
             </div>
           </motion.div>
@@ -166,7 +151,17 @@ const Contact = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <input type="hidden" name="bot-field" />
+
               {submitStatus && (
                 <div className={`p-4 rounded-lg ${
                   submitStatus.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
@@ -174,12 +169,6 @@ const Contact = () => {
                   {submitStatus.message}
                 </div>
               )}
-
-              <div className="bg-gray-100 p-4 rounded-lg">
-                <p className="text-gray-600 text-center text-sm">
-                  Le formulaire de contact sera bientôt disponible. Utilisez le lien email ci-dessus pour nous contacter directement.
-                </p>
-              </div>
 
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -191,7 +180,6 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
                 />
@@ -207,7 +195,6 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
                 />
@@ -222,14 +209,13 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
                 >
                   <option value="">Sélectionnez un sujet</option>
-                  <option value="mariage">Mariage</option>
-                  <option value="portrait">Portrait</option>
-                  <option value="evenement">Événement</option>
+                  <option value="matchday">Matchday Production</option>
+                  <option value="academy">Academy Immersion</option>
+                  <option value="branding">Club Branding & Social Media</option>
                   <option value="autre">Autre</option>
                 </select>
               </div>
@@ -244,18 +230,22 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows={6}
-                  disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
-                ></textarea>
+                >
+                </textarea>
               </div>
 
               <button
                 type="submit"
-                disabled={true}
-                className="w-full bg-gray-400 text-white py-3 px-6 rounded-lg cursor-not-allowed"
+                disabled={isSubmitting}
+                className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
+                  isSubmitting
+                    ? 'bg-gray-400 text-white cursor-not-allowed'
+                    : 'bg-black text-white hover:bg-gray-800 cursor-pointer'
+                }`}
               >
-                Formulaire temporairement indisponible
+                {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
               </button>
             </form>
           </motion.div>

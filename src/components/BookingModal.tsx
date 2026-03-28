@@ -11,8 +11,7 @@ interface BookingModalProps {
 }
 
 const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageName, packagePrice }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const [submitStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const firstInputRef = useRef<HTMLInputElement>(null);
@@ -48,79 +47,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
     };
   }, [isOpen, onClose]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isSubmitting) return;
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-      trackEvent('Réservation', `Soumission - ${packageName}`);
-
-      // Vérifier si les variables d'environnement Supabase sont configurées
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-      
-      if (!supabaseUrl || !supabaseKey || supabaseUrl.includes('your-project-ref') || supabaseKey.includes('your-anon-key')) {
-        // Mode démonstration - simuler un envoi réussi
-        console.log('Mode démonstration - Données du formulaire:', {
-          ...data,
-          packageName,
-          packagePrice,
-        });
-        
-        // Simuler un délai d'envoi
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        trackEvent('Réservation', `Succès (Demo) - ${packageName}`);
-        setSubmitStatus({
-          type: 'success',
-          message: 'Votre demande a été envoyée avec succès ! (Mode démonstration)'
-        });
-      } else {
-        // Mode production avec Supabase configuré
-        const response = await fetch(`${supabaseUrl}/functions/v1/send-booking-email`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${supabaseKey}`,
-          },
-          body: JSON.stringify({
-            ...data,
-            packageName,
-            packagePrice,
-          }),
-        });
-
-        const responseData = await response.json();
-
-        if (!response.ok) {
-          throw new Error(responseData.error || 'Erreur lors de l\'envoi du formulaire');
-        }
-
-        trackEvent('Réservation', `Succès - ${packageName}`);
-        setSubmitStatus({
-          type: 'success',
-          message: 'Votre demande a été envoyée avec succès !'
-        });
-      }
-      
-      setTimeout(() => {
-        onClose();
-      }, 2000);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      trackEvent('Réservation', `Erreur - ${packageName}`);
-      setSubmitStatus({
-        type: 'error',
-        message: error instanceof Error ? error.message : 'Une erreur est survenue. Veuillez réessayer.'
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   const today = new Date().toISOString().split('T')[0];

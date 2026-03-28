@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
@@ -28,15 +27,22 @@ const About = () => {
     {
       name: "CS Meaux Academy",
       role: "Club de Football",
-      image: "https://i.imgur.com/VbD673J.jpeg",
+      image: "https://upload.wikimedia.org/wikipedia/fr/a/ab/Logo_CS_Meaux_AF.svg",
       text: "Un véritable professionnel qui comprend les enjeux du sport. La qualité cinématographique de ses productions a transformé notre communication.",
       rating: 5
     },
     {
       name: "Onegoal Academy",
       role: "Équipe compétition",
-      image: "https://i.imgur.com/cusGwVF.jpeg",
+      image: "https://onegoalshop.fr/cdn/shop/files/IMG_4488-removebg-preview.png?height=130&v=1763272482",
       text: "Les contenus produits pour notre saison nous ont permis de nous démarquer. Un partenaire de confiance et de qualité.",
+      rating: 5
+    },
+    {
+      name: "Ibengo Sport",
+      role: "Club de Football",
+      image: "https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/118721/--2.png",
+      text: "La qualité cinématographique de la couverture de notre saison a vraiment marqué les esprits. Un partenaire de confiance pour notre club.",
       rating: 5
     }
   ];
@@ -94,9 +100,9 @@ const About = () => {
             </div>
             <div className="relative">
               <img
-                src="https://i.imgur.com/BuP8W0m.jpeg"
-                alt="BKR Studio en action"
-                className="rounded-lg shadow-xl"
+                src="https://i.imgur.com/hpQfzgY.png"
+                alt="BKR Studio Logo"
+                className="max-w-md w-full mx-auto"
               />
             </div>
           </motion.div>
@@ -241,7 +247,7 @@ const About = () => {
         {/* Testimonials */}
         <section className="mb-20">
           <h2 className="text-3xl font-bold mb-12 text-center">Ce que disent nos partenaires</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
@@ -254,7 +260,7 @@ const About = () => {
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    className="w-16 h-16 rounded-full object-cover mr-4"
+                    className={`w-16 h-16 rounded-full object-cover mr-4 ${(testimonial.name === "Onegoal Academy" || testimonial.name === "Ibengo Sport" || testimonial.name === "CS Meaux Academy") ? "bg-black p-1" : ""}`}
                   />
                   <div>
                     <h3 className="font-bold text-lg">{testimonial.name}</h3>

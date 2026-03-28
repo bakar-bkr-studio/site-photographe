@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Masonry from 'react-masonry-css';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import classNames from 'classnames';
-import { Play, Trophy, Award } from 'lucide-react';
+import { Play, Trophy, ArrowRight } from 'lucide-react';
+import { trackEvent } from '../hooks/useAnalytics';
+import { Link } from 'react-router-dom';
 import 'react-photo-view/dist/react-photo-view.css';
 
 const Portfolio = () => {
@@ -13,11 +15,36 @@ const Portfolio = () => {
 
   const photos = [
     // Matchday
-    { id: '11', category: 'Matchday', url: 'https://i.imgur.com/BuP8W0m.jpeg', title: 'Duel intense' },
-    { id: '12', category: 'Matchday', url: 'https://i.imgur.com/EDWNki1.jpeg', title: 'Enjeu du match' },
-    { id: '13', category: 'Matchday', url: 'https://imgur.com/uqENZcw', title: 'Technique de jeu' },
-    { id: '14', category: 'Matchday', url: 'https://i.imgur.com/qe2MoNG.jpeg', title: 'Cohésion d\'équipe' },
-    { id: '15', category: 'Matchday', url: 'https://i.imgur.com/9bvOcy8.jpeg', title: 'Action match' },
+    { id: 'm1', category: 'Matchday', url: 'https://i.imgur.com/8NROvSz.jpeg', title: 'Matchday 1' },
+    { id: 'm2', category: 'Matchday', url: 'https://i.imgur.com/XiBAEtO.jpeg', title: 'Matchday 2' },
+    { id: 'm3', category: 'Matchday', url: 'https://i.imgur.com/SVWZEco.jpeg', title: 'Matchday 3' },
+    { id: 'm4', category: 'Matchday', url: 'https://i.imgur.com/kwI1TEY.jpeg', title: 'Matchday 4' },
+    { id: 'm5', category: 'Matchday', url: 'https://i.imgur.com/ZWk9tSc.jpeg', title: 'Matchday 5' },
+    { id: 'm6', category: 'Matchday', url: 'https://i.imgur.com/3HxDhC4.jpeg', title: 'Matchday 6' },
+    { id: 'm7', category: 'Matchday', url: 'https://i.imgur.com/wmkBvVM.jpeg', title: 'Matchday 7' },
+    { id: 'm8', category: 'Matchday', url: 'https://i.imgur.com/hZ2xZSX.jpeg', title: 'Matchday 8' },
+    { id: 'm9', category: 'Matchday', url: 'https://i.imgur.com/Qk3dm5K.jpeg', title: 'Matchday 9' },
+    { id: 'm10', category: 'Matchday', url: 'https://i.imgur.com/ETdpC37.jpeg', title: 'Matchday 10' },
+    { id: 'm11', category: 'Matchday', url: 'https://i.imgur.com/wwg323y.jpeg', title: 'Matchday 11' },
+    { id: 'm12', category: 'Matchday', url: 'https://i.imgur.com/rUBQ711.jpeg', title: 'Matchday 12' },
+    { id: 'm13', category: 'Matchday', url: 'https://i.imgur.com/hLsrjbe.jpeg', title: 'Matchday 13' },
+    { id: 'm14', category: 'Matchday', url: 'https://i.imgur.com/Rz1cvpG.jpeg', title: 'Matchday 14' },
+    { id: 'm15', category: 'Matchday', url: 'https://i.imgur.com/OLVTSN1.jpeg', title: 'Matchday 15' },
+    { id: 'm16', category: 'Matchday', url: 'https://i.imgur.com/1z5TNxq.jpeg', title: 'Matchday 16' },
+    { id: 'm17', category: 'Matchday', url: 'https://i.imgur.com/5Z8YyYZ.jpeg', title: 'Matchday 17' },
+    { id: 'm18', category: 'Matchday', url: 'https://i.imgur.com/srBXvV4.jpeg', title: 'Matchday 18' },
+    { id: 'm19', category: 'Matchday', url: 'https://i.imgur.com/pfz6zqD.jpeg', title: 'Matchday 19' },
+    { id: 'm20', category: 'Matchday', url: 'https://i.imgur.com/vQL4RkK.jpeg', title: 'Matchday 20' },
+    { id: 'm21', category: 'Matchday', url: 'https://i.imgur.com/G8HbE4o.jpeg', title: 'Matchday 21' },
+    { id: 'm22', category: 'Matchday', url: 'https://i.imgur.com/eU2vgz3.jpeg', title: 'Matchday 22' },
+    { id: 'm23', category: 'Matchday', url: 'https://i.imgur.com/16yLvvl.jpeg', title: 'Matchday 23' },
+    { id: 'm24', category: 'Matchday', url: 'https://i.imgur.com/mg0GGJS.jpeg', title: 'Matchday 24' },
+    { id: 'm25', category: 'Matchday', url: 'https://i.imgur.com/v3dsA2Z.jpeg', title: 'Matchday 25' },
+    { id: 'm26', category: 'Matchday', url: 'https://i.imgur.com/CtzMEPU.jpeg', title: 'Matchday 26' },
+    { id: 'm27', category: 'Matchday', url: 'https://i.imgur.com/5cLdf5S.jpeg', title: 'Matchday 27' },
+    { id: 'm28', category: 'Matchday', url: 'https://i.imgur.com/a4LCcWH.jpeg', title: 'Matchday 28' },
+    { id: 'm29', category: 'Matchday', url: 'https://i.imgur.com/Gfuq02v.jpeg', title: 'Matchday 29' },
+    { id: 'm30', category: 'Matchday', url: 'https://i.imgur.com/kAYWLmo.jpeg', title: 'Matchday 30' },
 
     // Academy
     { id: '1', category: 'Academy', url: 'https://i.imgur.com/VT3ORx1.jpeg', title: 'Academy 1' },
@@ -72,20 +99,36 @@ const Portfolio = () => {
     { id: '138', category: 'Academy', url: 'https://i.imgur.com/Qlp1AqZ.jpeg', title: 'Academy 50' },
 
     // Player Portrait
-    { id: '4', category: 'Player Portrait', url: 'https://i.imgur.com/j34Uwrg.jpeg', title: 'Portrait joueur' },
-    { id: '5', category: 'Player Portrait', url: 'https://i.imgur.com/TusfVeK.jpeg', title: 'Focus athlétique' },
-    { id: '6', category: 'Player Portrait', url: 'https://i.imgur.com/MlWrSWX.jpeg', title: 'Portrait professionnel' },
-    { id: '7', category: 'Player Portrait', url: 'https://i.imgur.com/qgs8aIF.jpeg', title: 'Personnalité joueur' },
+    // (Contenu en cours de mise à jour)
 
     // Club Atmosphere
-    { id: '8', category: 'Club Atmosphere', url: 'https://i.imgur.com/REvU6Ra.jpeg', title: 'Ambiance stade' },
-    { id: '9', category: 'Club Atmosphere', url: 'https://i.imgur.com/K6QUwtM.jpeg', title: 'Esprit club' },
-    { id: '10', category: 'Club Atmosphere', url: 'https://i.imgur.com/xV8tUz4.jpeg', title: 'Vestiaire' },
-    { id: '23', category: 'Club Atmosphere', url: 'https://i.imgur.com/ZPGdAaK.jpeg', title: 'Atmosphère matchday' },
+    { id: 'ca1', category: 'Club Atmosphere', url: 'https://i.imgur.com/LjAvlB5.jpeg', title: 'Atmosphère 1' },
+    { id: 'ca2', category: 'Club Atmosphere', url: 'https://i.imgur.com/sFJ5FwJ.jpeg', title: 'Atmosphère 2' },
+    { id: 'ca3', category: 'Club Atmosphere', url: 'https://i.imgur.com/zzkgSBk.jpeg', title: 'Atmosphère 3' },
+    { id: 'ca4', category: 'Club Atmosphere', url: 'https://i.imgur.com/mEbsz5M.jpeg', title: 'Atmosphère 4' },
+    { id: 'ca5', category: 'Club Atmosphere', url: 'https://i.imgur.com/ehrEL7m.jpeg', title: 'Atmosphère 5' },
+    { id: 'ca6', category: 'Club Atmosphere', url: 'https://i.imgur.com/8KDHzzo.jpeg', title: 'Atmosphère 6' },
+    { id: 'ca7', category: 'Club Atmosphere', url: 'https://i.imgur.com/cEu66W3.jpeg', title: 'Atmosphère 7' },
+    { id: 'ca8', category: 'Club Atmosphere', url: 'https://i.imgur.com/1xv6YOc.jpeg', title: 'Atmosphère 8' },
+    { id: 'ca9', category: 'Club Atmosphere', url: 'https://i.imgur.com/N6OL0d3.jpeg', title: 'Atmosphère 9' },
+    { id: 'ca10', category: 'Club Atmosphere', url: 'https://i.imgur.com/EeKFk9B.jpeg', title: 'Atmosphère 10' },
+    { id: 'ca11', category: 'Club Atmosphere', url: 'https://i.imgur.com/K0rRcqL.jpeg', title: 'Atmosphère 11' },
+    { id: 'ca12', category: 'Club Atmosphere', url: 'https://i.imgur.com/vkDd0Ri.jpeg', title: 'Atmosphère 12' },
+    { id: 'ca13', category: 'Club Atmosphere', url: 'https://i.imgur.com/rYEgvXQ.jpeg', title: 'Atmosphère 13' },
+    { id: 'ca14', category: 'Club Atmosphere', url: 'https://i.imgur.com/HekTmlg.jpeg', title: 'Atmosphère 14' },
+    { id: 'ca15', category: 'Club Atmosphere', url: 'https://i.imgur.com/Jyurm57.jpeg', title: 'Atmosphère 15' },
+    { id: 'ca16', category: 'Club Atmosphere', url: 'https://i.imgur.com/qbg75rM.jpeg', title: 'Atmosphère 16' },
+    { id: 'ca17', category: 'Club Atmosphere', url: 'https://i.imgur.com/5kaHqMs.jpeg', title: 'Atmosphère 17' },
+    { id: 'ca18', category: 'Club Atmosphere', url: 'https://i.imgur.com/oBMQPS7.jpeg', title: 'Atmosphère 18' },
+    { id: 'ca19', category: 'Club Atmosphere', url: 'https://i.imgur.com/Koc1yh2.jpeg', title: 'Atmosphère 19' },
+    { id: 'ca20', category: 'Club Atmosphere', url: 'https://i.imgur.com/K4PO7XM.jpeg', title: 'Atmosphère 20' },
+    { id: 'ca21', category: 'Club Atmosphere', url: 'https://i.imgur.com/p8uRsou.jpeg', title: 'Atmosphère 21' },
+    { id: 'ca22', category: 'Club Atmosphere', url: 'https://i.imgur.com/0jx8NZo.jpeg', title: 'Atmosphère 22' },
+    { id: 'ca23', category: 'Club Atmosphere', url: 'https://i.imgur.com/XWuZUmV.jpeg', title: 'Atmosphère 23' },
+    { id: 'ca24', category: 'Club Atmosphere', url: 'https://i.imgur.com/yboFifA.jpeg', title: 'Atmosphère 24' },
 
     // Club Promotion
-    { id: '16', category: 'Club Promotion', url: 'https://i.imgur.com/irwFTuH.jpeg', title: 'Communication club' },
-    { id: '17', category: 'Club Promotion', url: 'https://i.imgur.com/2toUB9N.jpeg', title: 'Branding club' },
+
     { id: '24', category: 'Club Promotion', url: 'https://i.imgur.com/OtiypZW.jpeg', title: 'Promotion club 1' },
     { id: '25', category: 'Club Promotion', url: 'https://i.imgur.com/ECxruKF.jpeg', title: 'Promotion club 2' },
     { id: '26', category: 'Club Promotion', url: 'https://i.imgur.com/K2XRfc6.jpeg', title: 'Promotion club 3' },
@@ -158,9 +201,7 @@ const Portfolio = () => {
     { id: '91', category: 'Women\'s Football', url: 'https://i.imgur.com/InV5QWb.jpeg', title: 'Women\'s Football 45' },
 
     // Other Sports
-    { id: '18', category: 'Other Sports', url: 'https://i.imgur.com/YAeTnOQ.jpeg', title: 'Autres sports 1' },
-    { id: '19', category: 'Other Sports', url: 'https://i.imgur.com/55Is0NH.jpeg', title: 'Autres sports 2' },
-    { id: '20', category: 'Other Sports', url: 'https://i.imgur.com/ElhlqKV.jpeg', title: 'Autres sports 3' },
+    // (Contenu en cours de mise à jour)
   ];
 
   const filteredPhotos = activePhotoCategory === 'Tous'
@@ -178,7 +219,7 @@ const Portfolio = () => {
       {/* Hero Section */}
       <div className="relative h-[50vh] bg-black mb-20">
         <img
-          src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1920&q=80"
+          src="https://i.imgur.com/5cLdf5S.jpeg"
           alt="Football Portfolio"
           className="w-full h-full object-cover opacity-40"
         />
@@ -315,14 +356,32 @@ const Portfolio = () => {
             ))}
           </div>
 
+          {/* Empty State Message */}
+          {filteredPhotos.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="w-full py-24 px-4 text-center border border-gray-800 rounded-2xl bg-gray-900/50 my-8"
+            >
+              <div className="max-w-xl mx-auto">
+                <h3 className="text-2xl font-bold text-white mb-4">Mise à jour en cours</h3>
+                <p className="text-gray-400 text-lg leading-relaxed">
+                  La rubrique "<span className="text-white font-medium">{activePhotoCategory}</span>" sera mise à jour très prochainement. De nouvelles images arriveront bientôt pour compenser ce vide !
+                </p>
+              </div>
+            </motion.div>
+          )}
+
           {/* Photo Grid */}
-          <AnimatePresence mode="wait">
-            <PhotoProvider>
-              <Masonry
-                breakpointCols={breakpointColumns}
-                className="flex -ml-4 w-auto"
-                columnClassName="pl-4 bg-clip-padding"
-              >
+          <div className={filteredPhotos.length === 0 ? "hidden" : "block"}>
+            <AnimatePresence mode="wait">
+              <PhotoProvider>
+                <Masonry
+                  breakpointCols={breakpointColumns}
+                  className="flex -ml-4 w-auto"
+                  columnClassName="pl-4 bg-clip-padding"
+                >
                 {filteredPhotos.map((photo, index) => (
                   <motion.div
                     key={photo.id}
@@ -355,6 +414,7 @@ const Portfolio = () => {
               </Masonry>
             </PhotoProvider>
           </AnimatePresence>
+          </div>
         </motion.section>
 
         {/* Case Study Section */}
@@ -414,28 +474,50 @@ const Portfolio = () => {
             >
               <div className="relative aspect-square rounded-lg overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80"
-                  alt="Case study"
+                  src="https://i.imgur.com/uOsZ9wt.jpeg"
+                  alt="Case study 1"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
               </div>
               <div className="relative aspect-square rounded-lg overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80"
-                  alt="Case study"
+                  src="https://i.imgur.com/hZ2xZSX.jpeg"
+                  alt="Case study 2"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
               </div>
               <div className="col-span-2 relative aspect-square rounded-lg overflow-hidden lg:col-span-1">
                 <img
-                  src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80"
-                  alt="Case study"
+                  src="https://i.imgur.com/J7MKRpl.jpeg"
+                  alt="Case study 3"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
               </div>
             </motion.div>
           </div>
         </motion.section>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-24 mb-12 bg-gray-900 border border-gray-800 text-white p-12 rounded-xl text-center"
+        >
+          <h2 className="text-3xl font-bold mb-4">Prêt à collaborer ?</h2>
+          <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+            Discutons de vos besoins en images et voyons comment mettre en valeur votre projet sportif ou académique.
+          </p>
+          <Link
+            to="/contact"
+            onClick={() => trackEvent('Portfolio CTA', 'Click Contact')}
+            className="inline-flex items-center bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors"
+          >
+            Nous contacter
+            <ArrowRight className="h-5 w-5 ml-2" />
+          </Link>
+        </motion.div>
       </div>
     </div>
   );

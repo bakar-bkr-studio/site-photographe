@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Film, Zap, Users, Clock, ArrowRight } from 'lucide-react';
+import { Film, Zap, Users, ArrowRight, Activity, Star } from 'lucide-react';
 import BookingModal from '../components/BookingModal';
 
-interface ServicePackage {
-  name: string;
-  features: string[];
-}
 
 const Services = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,10 +13,11 @@ const Services = () => {
     setModalOpen(true);
   };
 
-  const footballPackages = [
+  const packages = [
     {
       icon: Film,
       title: 'Pack Matchday',
+      price: 'À partir de 80€',
       tagline: 'Couverture complète d\'un match',
       description: 'Pour valoriser votre prestation sur le terrain et générer du contenu immédiat.',
       features: [
@@ -33,6 +30,7 @@ const Services = () => {
     {
       icon: Zap,
       title: 'Pack Saison',
+      price: 'À partir de 350€/mois',
       tagline: 'Production mensuelle continue',
       description: 'Suivi régulier de votre club avec contenus réseaux et couvertures matchs clés.',
       features: [
@@ -46,6 +44,7 @@ const Services = () => {
     {
       icon: Users,
       title: 'Pack Branding Club',
+      price: 'À partir de 800€',
       tagline: 'Structuration de votre image',
       description: 'Identité visuelle et contenus fondateurs pour votre communication d\'image.',
       features: [
@@ -55,6 +54,32 @@ const Services = () => {
         'Templates réseaux sociaux',
         'Charte de production personnalisée'
       ]
+    },
+    {
+      icon: Activity,
+      title: 'Pack Sports (hors football)',
+      price: 'À partir de 150€',
+      tagline: 'Couverture multi-sports',
+      description: 'Couverture photo et vidéo pour autres disciplines sportives (rugby, athlétisme, équitation, etc.)',
+      features: [
+        'Couverture photo & vidéo',
+        'Formats adaptés aux réseaux sociaux',
+        'Mise en valeur des athlètes',
+        'Livraison rapide post-événement'
+      ]
+    },
+    {
+      icon: Star,
+      title: 'Pack Événementiel & Projets spéciaux',
+      price: 'Sur devis',
+      tagline: 'Événements & Corporate',
+      description: 'Mariage, événements, concerts, corporate, projets personnalisés.',
+      features: [
+        'Étude personnalisée de votre projet',
+        'Couverture sur-mesure (photo/vidéo)',
+        'Livraison en très haute qualité',
+        'Cession des droits d\'image détaillée'
+      ]
     }
   ];
 
@@ -63,7 +88,7 @@ const Services = () => {
       {/* Hero Section */}
       <div className="relative h-[50vh] bg-black mb-20">
         <img
-          src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1920&q=80"
+          src="https://i.imgur.com/DqTM7wQ.jpeg"
           alt="Production Football"
           className="w-full h-full object-cover opacity-50"
         />
@@ -88,25 +113,30 @@ const Services = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 pb-20">
         {/* Packages Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {footballPackages.map((pkg, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {packages.map((pkg, index) => (
             <motion.div
               key={index}
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-black hover:shadow-xl transition-shadow"
+              className="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-black hover:shadow-xl transition-shadow flex flex-col"
             >
-              <div className="p-8">
+              <div className="p-8 flex flex-col h-full">
                 <div className="flex items-start justify-between mb-4">
                   <pkg.icon className="h-10 w-10 text-black" />
                 </div>
 
                 <h3 className="text-2xl font-bold mb-2">{pkg.title}</h3>
-                <p className="text-sm font-semibold text-gray-600 mb-3">{pkg.tagline}</p>
+                <div className="mb-4">
+                  <span className="inline-block font-semibold text-sm text-black bg-gray-100 px-4 py-1.5 rounded-full">
+                    {pkg.price}
+                  </span>
+                </div>
+                <p className="text-sm font-semibold text-gray-600 mb-2">{pkg.tagline}</p>
                 <p className="text-gray-700 mb-6">{pkg.description}</p>
 
-                <div className="bg-gray-50 rounded-lg p-6 mb-8">
+                <div className="bg-gray-50 rounded-lg p-6 mb-8 flex-grow">
                   <ul className="space-y-3">
                     {pkg.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start gap-3">
@@ -119,7 +149,7 @@ const Services = () => {
 
                 <button
                   onClick={() => handleQuote(pkg.title)}
-                  className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors mt-auto flex items-center justify-center gap-2"
                 >
                   Demander un devis
                   <ArrowRight className="h-4 w-4" />

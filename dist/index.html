@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preload" as="image" href="https://i.imgur.com/irwFTuH.jpeg" fetchpriority="high" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photographe &amp; Vidéaste Sport à Paris | Spécialiste Football &amp; Clubs</title>
+    <meta name="description" content="Photographe et vidéaste spécialisé football. J'accompagne clubs, académies et sportifs en Île-de-France et à Reims avec du contenu photo et vidéo professionnel." />
+    <meta name="keywords" content="photographe football paris, vidéaste sport île-de-france, production vidéo football, photographe club football, vidéaste reims, photographe sport paris, matchday production, academy football, branding club sportif, photographe événement sportif" />
+    <meta name="author" content="BKR Studio" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bkr-studio.com" />
+    <meta property="og:title" content="BKR Studio – Photographe &amp; Vidéaste Sport | Football &amp; Clubs" />
+    <meta property="og:description" content="Photographe et vidéaste spécialisé football. J'accompagne clubs, académies et sportifs en Île-de-France et à Reims avec du contenu photo et vidéo professionnel." />
+    <meta property="og:image" content="https://i.imgur.com/ZPGdAaK.jpeg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://bkr-studio.com" />
+    <meta name="twitter:title" content="BKR Studio – Photographe &amp; Vidéaste Sport | Football &amp; Clubs" />
+    <meta name="twitter:description" content="Photographe et vidéaste spécialisé football. J'accompagne clubs, académies et sportifs en Île-de-France et à Reims avec du contenu photo et vidéo professionnel." />
+    <meta name="twitter:image" content="https://i.imgur.com/ZPGdAaK.jpeg" />
+
+    <!-- Cookiebot -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="3e2b4d57-a830-4ab8-b169-827cae1168cd" type="text/javascript" async></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3XR7P69QX3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3XR7P69QX3');
+    </script>
+    
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script type="module" crossorigin src="/assets/index-BW-aKrqM.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-8wlnNCK6.css">
+  </head>
+  <body>
+    <!-- Netlify Forms: formulaire statique pour détection par le bot de build -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <select name="subject">
+        <option value="matchday">Matchday Production</option>
+        <option value="academy">Academy Immersion</option>
+        <option value="branding">Club Branding &amp; Social Media</option>
+        <option value="autre">Autre</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
+
+    <div id="root"></div>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
