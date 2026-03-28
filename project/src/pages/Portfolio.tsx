@@ -2,89 +2,170 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Masonry from 'react-masonry-css';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import ReactPlayer from 'react-player';
 import classNames from 'classnames';
-import { Play, Image as ImageIcon, Clock, Tag } from 'lucide-react';
+import { Play, Trophy, Award } from 'lucide-react';
 import 'react-photo-view/dist/react-photo-view.css';
 
 const Portfolio = () => {
-  const [mediaType, setMediaType] = useState<'photos' | 'videos'>('photos');
-  const [activeCategory, setActiveCategory] = useState('Tous');
+  const [activePhotoCategory, setActivePhotoCategory] = useState('Tous');
 
-  const photoCategories = ['Tous', 'Mariage', 'Portrait', 'Événement', 'Nature', 'Sport'];
-  const videoCategories = ['Tous', 'Mariage', 'Corporate', 'Sport', 'Événement', 'Interview'];
+  const photoCategories = ['Tous', 'Matchday', 'Academy', 'Player Portrait', 'Club Atmosphere', 'Club Promotion', 'Women\'s Football', 'Other Sports'];
 
   const photos = [
-    // Mariage
-    { id: '1', category: 'Mariage', url: 'https://i.imgur.com/JIjjRP2.jpeg', title: 'Mariage - Photo de couple' },
-    { id: '2', category: 'Mariage', url: 'https://i.imgur.com/wmFZbza.jpeg', title: 'Mariage - Préparatifs' },
-    { id: '3', category: 'Mariage', url: 'https://i.imgur.com/K4Y18mM.jpeg', title: 'Mariage - Cérémonie' },
-    
-    // Portrait
-    { id: '4', category: 'Portrait', url: 'https://i.imgur.com/j34Uwrg.jpeg', title: 'Portrait en extérieur' },
-    { id: '5', category: 'Portrait', url: 'https://i.imgur.com/TusfVeK.jpeg', title: 'Portrait artistique' },
-    { id: '6', category: 'Portrait', url: 'https://i.imgur.com/MlWrSWX.jpeg', title: 'Portrait lifestyle' },
-    { id: '7', category: 'Portrait', url: 'https://i.imgur.com/qgs8aIF.jpeg', title: 'Portrait studio' },
-    
-    // Nature
-    { id: '8', category: 'Nature', url: 'https://i.imgur.com/REvU6Ra.jpeg', title: 'Nature sauvage' },
-    { id: '9', category: 'Nature', url: 'https://i.imgur.com/K6QUwtM.jpeg', title: 'Paysage naturel' },
-    { id: '10', category: 'Nature', url: 'https://i.imgur.com/xV8tUz4.jpeg', title: 'Faune sauvage' },
-    { id: '23', category: 'Nature', url: 'https://i.imgur.com/ZPGdAaK.jpeg', title: 'Paysage montagneux' },
-    
-    // Sport
-    { id: '11', category: 'Sport', url: 'https://i.imgur.com/BuP8W0m.jpeg', title: 'Football - Action de jeu' },
-    { id: '12', category: 'Sport', url: 'https://i.imgur.com/EDWNki1.jpeg', title: 'Football - Duel' },
-    { id: '13', category: 'Sport', url: 'https://i.imgur.com/VbD673J.jpeg', title: 'Football - Technique' },
-    { id: '14', category: 'Sport', url: 'https://i.imgur.com/qe2MoNG.jpeg', title: 'Football - Équipe' },
-    { id: '15', category: 'Sport', url: 'https://i.imgur.com/9bvOcy8.jpeg', title: 'Football - Match' },
-    { id: '16', category: 'Sport', url: 'https://i.imgur.com/irwFTuH.jpeg', title: 'Football - Célébration' },
-    { id: '17', category: 'Sport', url: 'https://i.imgur.com/2toUB9N.jpeg', title: 'Football - Portrait' },
-    
-    // Événement
-    { id: '18', category: 'Événement', url: 'https://i.imgur.com/YAeTnOQ.jpeg', title: 'Événement culturel' },
-    { id: '19', category: 'Événement', url: 'https://i.imgur.com/55Is0NH.jpeg', title: 'Concert live' },
-    { id: '20', category: 'Événement', url: 'https://i.imgur.com/ElhlqKV.jpeg', title: 'Festival' },
-    { id: '21', category: 'Événement', url: 'https://i.imgur.com/Zq1KUsJ.jpeg', title: 'Soirée' },
-    { id: '22', category: 'Événement', url: 'https://i.imgur.com/GeMGohi.jpeg', title: 'Événement corporate' }
+    // Matchday
+    { id: '11', category: 'Matchday', url: 'https://i.imgur.com/BuP8W0m.jpeg', title: 'Duel intense' },
+    { id: '12', category: 'Matchday', url: 'https://i.imgur.com/EDWNki1.jpeg', title: 'Enjeu du match' },
+    { id: '13', category: 'Matchday', url: 'https://imgur.com/uqENZcw', title: 'Technique de jeu' },
+    { id: '14', category: 'Matchday', url: 'https://i.imgur.com/qe2MoNG.jpeg', title: 'Cohésion d\'équipe' },
+    { id: '15', category: 'Matchday', url: 'https://i.imgur.com/9bvOcy8.jpeg', title: 'Action match' },
+
+    // Academy
+    { id: '1', category: 'Academy', url: 'https://i.imgur.com/VT3ORx1.jpeg', title: 'Academy 1' },
+    { id: '2', category: 'Academy', url: 'https://i.imgur.com/n4ASyBY.jpeg', title: 'Academy 2' },
+    { id: '3', category: 'Academy', url: 'https://i.imgur.com/zBWLUhp.jpeg', title: 'Academy 3' },
+    { id: '92', category: 'Academy', url: 'https://i.imgur.com/1SwTB5O.jpeg', title: 'Academy 4' },
+    { id: '93', category: 'Academy', url: 'https://i.imgur.com/kheSgCo.jpeg', title: 'Academy 5' },
+    { id: '94', category: 'Academy', url: 'https://i.imgur.com/EUaYSWn.jpeg', title: 'Academy 6' },
+    { id: '95', category: 'Academy', url: 'https://i.imgur.com/ALFweTg.jpeg', title: 'Academy 7' },
+    { id: '96', category: 'Academy', url: 'https://i.imgur.com/Y9ZWcUy.jpeg', title: 'Academy 8' },
+    { id: '97', category: 'Academy', url: 'https://i.imgur.com/3FloT7z.jpeg', title: 'Academy 9' },
+    { id: '98', category: 'Academy', url: 'https://i.imgur.com/3oWxiSp.jpeg', title: 'Academy 10' },
+    { id: '99', category: 'Academy', url: 'https://i.imgur.com/Lv7NypY.jpeg', title: 'Academy 11' },
+    { id: '100', category: 'Academy', url: 'https://i.imgur.com/e0qAi8k.jpeg', title: 'Academy 12' },
+    { id: '101', category: 'Academy', url: 'https://i.imgur.com/B9G6wzn.jpeg', title: 'Academy 13' },
+    { id: '102', category: 'Academy', url: 'https://i.imgur.com/dYO1wvS.jpeg', title: 'Academy 14' },
+    { id: '103', category: 'Academy', url: 'https://i.imgur.com/kU19pkW.jpeg', title: 'Academy 15' },
+    { id: '104', category: 'Academy', url: 'https://i.imgur.com/2Yzq8Nq.jpeg', title: 'Academy 16' },
+    { id: '105', category: 'Academy', url: 'https://i.imgur.com/buIGXuV.jpeg', title: 'Academy 17' },
+    { id: '106', category: 'Academy', url: 'https://i.imgur.com/ndehWq9.jpeg', title: 'Academy 18' },
+    { id: '107', category: 'Academy', url: 'https://i.imgur.com/YWL2r0E.jpeg', title: 'Academy 19' },
+    { id: '108', category: 'Academy', url: 'https://i.imgur.com/Br99Vjz.jpeg', title: 'Academy 20' },
+    { id: '109', category: 'Academy', url: 'https://i.imgur.com/YtBZore.jpeg', title: 'Academy 21' },
+    { id: '110', category: 'Academy', url: 'https://i.imgur.com/aDXYj2u.jpeg', title: 'Academy 22' },
+    { id: '111', category: 'Academy', url: 'https://i.imgur.com/m0AUACi.jpeg', title: 'Academy 23' },
+    { id: '112', category: 'Academy', url: 'https://i.imgur.com/9xllQ0N.jpeg', title: 'Academy 24' },
+    { id: '113', category: 'Academy', url: 'https://i.imgur.com/XMpd5xz.jpeg', title: 'Academy 25' },
+    { id: '114', category: 'Academy', url: 'https://i.imgur.com/AoSvf2N.jpeg', title: 'Academy 26' },
+    { id: '115', category: 'Academy', url: 'https://i.imgur.com/gKmVCnx.jpeg', title: 'Academy 27' },
+    { id: '116', category: 'Academy', url: 'https://i.imgur.com/az9iK3c.jpeg', title: 'Academy 28' },
+    { id: '117', category: 'Academy', url: 'https://i.imgur.com/oN5hzXJ.jpeg', title: 'Academy 29' },
+    { id: '118', category: 'Academy', url: 'https://i.imgur.com/TuGSlc7.jpeg', title: 'Academy 30' },
+    { id: '119', category: 'Academy', url: 'https://i.imgur.com/EA4Y2fB.jpeg', title: 'Academy 31' },
+    { id: '120', category: 'Academy', url: 'https://i.imgur.com/RcNuVAo.jpeg', title: 'Academy 32' },
+    { id: '121', category: 'Academy', url: 'https://i.imgur.com/FTdoiQE.jpeg', title: 'Academy 33' },
+    { id: '122', category: 'Academy', url: 'https://i.imgur.com/Qlp1AqZ.jpeg', title: 'Academy 34' },
+    { id: '123', category: 'Academy', url: 'https://i.imgur.com/uKTyliE.jpeg', title: 'Academy 35' },
+    { id: '124', category: 'Academy', url: 'https://i.imgur.com/LqRmqJj.jpeg', title: 'Academy 36' },
+    { id: '125', category: 'Academy', url: 'https://i.imgur.com/54n7gSz.jpeg', title: 'Academy 37' },
+    { id: '126', category: 'Academy', url: 'https://i.imgur.com/zWBt3zr.jpeg', title: 'Academy 38' },
+    { id: '127', category: 'Academy', url: 'https://i.imgur.com/lINk80l.jpeg', title: 'Academy 39' },
+    { id: '128', category: 'Academy', url: 'https://i.imgur.com/1nKePaU.jpeg', title: 'Academy 40' },
+    { id: '129', category: 'Academy', url: 'https://i.imgur.com/xpo0Bsm.jpeg', title: 'Academy 41' },
+    { id: '130', category: 'Academy', url: 'https://i.imgur.com/PRgx4Wu.jpeg', title: 'Academy 42' },
+    { id: '131', category: 'Academy', url: 'https://i.imgur.com/G9h0jCv.jpeg', title: 'Academy 43' },
+    { id: '132', category: 'Academy', url: 'https://i.imgur.com/Hf6WkZO.jpeg', title: 'Academy 44' },
+    { id: '133', category: 'Academy', url: 'https://i.imgur.com/3vuPvhZ.jpeg', title: 'Academy 45' },
+    { id: '134', category: 'Academy', url: 'https://i.imgur.com/MGl1s9T.jpeg', title: 'Academy 46' },
+    { id: '135', category: 'Academy', url: 'https://i.imgur.com/BSztsZg.jpeg', title: 'Academy 47' },
+    { id: '136', category: 'Academy', url: 'https://i.imgur.com/1QIxCAd.jpeg', title: 'Academy 48' },
+    { id: '137', category: 'Academy', url: 'https://i.imgur.com/6xucImE.jpeg', title: 'Academy 49' },
+    { id: '138', category: 'Academy', url: 'https://i.imgur.com/Qlp1AqZ.jpeg', title: 'Academy 50' },
+
+    // Player Portrait
+    { id: '4', category: 'Player Portrait', url: 'https://i.imgur.com/j34Uwrg.jpeg', title: 'Portrait joueur' },
+    { id: '5', category: 'Player Portrait', url: 'https://i.imgur.com/TusfVeK.jpeg', title: 'Focus athlétique' },
+    { id: '6', category: 'Player Portrait', url: 'https://i.imgur.com/MlWrSWX.jpeg', title: 'Portrait professionnel' },
+    { id: '7', category: 'Player Portrait', url: 'https://i.imgur.com/qgs8aIF.jpeg', title: 'Personnalité joueur' },
+
+    // Club Atmosphere
+    { id: '8', category: 'Club Atmosphere', url: 'https://i.imgur.com/REvU6Ra.jpeg', title: 'Ambiance stade' },
+    { id: '9', category: 'Club Atmosphere', url: 'https://i.imgur.com/K6QUwtM.jpeg', title: 'Esprit club' },
+    { id: '10', category: 'Club Atmosphere', url: 'https://i.imgur.com/xV8tUz4.jpeg', title: 'Vestiaire' },
+    { id: '23', category: 'Club Atmosphere', url: 'https://i.imgur.com/ZPGdAaK.jpeg', title: 'Atmosphère matchday' },
+
+    // Club Promotion
+    { id: '16', category: 'Club Promotion', url: 'https://i.imgur.com/irwFTuH.jpeg', title: 'Communication club' },
+    { id: '17', category: 'Club Promotion', url: 'https://i.imgur.com/2toUB9N.jpeg', title: 'Branding club' },
+    { id: '24', category: 'Club Promotion', url: 'https://i.imgur.com/OtiypZW.jpeg', title: 'Promotion club 1' },
+    { id: '25', category: 'Club Promotion', url: 'https://i.imgur.com/ECxruKF.jpeg', title: 'Promotion club 2' },
+    { id: '26', category: 'Club Promotion', url: 'https://i.imgur.com/K2XRfc6.jpeg', title: 'Promotion club 3' },
+    { id: '27', category: 'Club Promotion', url: 'https://i.imgur.com/DqTM7wQ.jpeg', title: 'Promotion club 4' },
+    { id: '28', category: 'Club Promotion', url: 'https://i.imgur.com/F5Dy7oG.jpeg', title: 'Promotion club 5' },
+    { id: '29', category: 'Club Promotion', url: 'https://i.imgur.com/bre7crj.jpeg', title: 'Promotion club 6' },
+    { id: '30', category: 'Club Promotion', url: 'https://i.imgur.com/t5DSq6Y.jpeg', title: 'Promotion club 7' },
+    { id: '31', category: 'Club Promotion', url: 'https://i.imgur.com/iCdOnPc.jpeg', title: 'Promotion club 8' },
+    { id: '32', category: 'Club Promotion', url: 'https://i.imgur.com/XLh5Die.jpeg', title: 'Promotion club 9' },
+    { id: '33', category: 'Club Promotion', url: 'https://i.imgur.com/HiufvE0.jpeg', title: 'Promotion club 10' },
+    { id: '34', category: 'Club Promotion', url: 'https://i.imgur.com/rPPnsJH.jpeg', title: 'Promotion club 11' },
+    { id: '35', category: 'Club Promotion', url: 'https://i.imgur.com/1i7laBl.jpeg', title: 'Promotion club 12' },
+    { id: '36', category: 'Club Promotion', url: 'https://i.imgur.com/Oz1PktU.jpeg', title: 'Promotion club 13' },
+    { id: '37', category: 'Club Promotion', url: 'https://i.imgur.com/1RvLQq8.jpeg', title: 'Promotion club 14' },
+    { id: '38', category: 'Club Promotion', url: 'https://i.imgur.com/LzFNFhx.jpeg', title: 'Promotion club 15' },
+    { id: '39', category: 'Club Promotion', url: 'https://i.imgur.com/A0cShVk.jpeg', title: 'Promotion club 16' },
+    { id: '40', category: 'Club Promotion', url: 'https://i.imgur.com/uEbfh73.jpeg', title: 'Promotion club 17' },
+    { id: '41', category: 'Club Promotion', url: 'https://i.imgur.com/Lbs6ozO.jpeg', title: 'Promotion club 18' },
+    { id: '42', category: 'Club Promotion', url: 'https://i.imgur.com/yeAxx11.jpeg', title: 'Promotion club 19' },
+    { id: '43', category: 'Club Promotion', url: 'https://i.imgur.com/C2fRc8V.jpeg', title: 'Promotion club 20' },
+    { id: '44', category: 'Club Promotion', url: 'https://i.imgur.com/KTR2Ypi.jpeg', title: 'Promotion club 21' },
+    { id: '45', category: 'Club Promotion', url: 'https://i.imgur.com/zbtQJG6.jpeg', title: 'Promotion club 22' },
+    { id: '46', category: 'Club Promotion', url: 'https://i.imgur.com/u4fUOwQ.jpeg', title: 'Promotion club 23' },
+
+    // Women's Football
+    { id: '47', category: 'Women\'s Football', url: 'https://i.imgur.com/uOsZ9wt.jpeg', title: 'Women\'s Football 1' },
+    { id: '48', category: 'Women\'s Football', url: 'https://i.imgur.com/k1cPeJG.jpeg', title: 'Women\'s Football 2' },
+    { id: '49', category: 'Women\'s Football', url: 'https://i.imgur.com/2modfHd.jpeg', title: 'Women\'s Football 3' },
+    { id: '50', category: 'Women\'s Football', url: 'https://i.imgur.com/FQzQT9R.jpeg', title: 'Women\'s Football 4' },
+    { id: '51', category: 'Women\'s Football', url: 'https://i.imgur.com/kQEwvp0.jpeg', title: 'Women\'s Football 5' },
+    { id: '52', category: 'Women\'s Football', url: 'https://i.imgur.com/3100TIs.jpeg', title: 'Women\'s Football 6' },
+    { id: '53', category: 'Women\'s Football', url: 'https://i.imgur.com/Yf7rr2e.jpeg', title: 'Women\'s Football 7' },
+    { id: '54', category: 'Women\'s Football', url: 'https://i.imgur.com/JlQJzcw.jpeg', title: 'Women\'s Football 8' },
+    { id: '55', category: 'Women\'s Football', url: 'https://i.imgur.com/5VW7fKl.jpeg', title: 'Women\'s Football 9' },
+    { id: '56', category: 'Women\'s Football', url: 'https://i.imgur.com/zw71i0i.jpeg', title: 'Women\'s Football 10' },
+    { id: '57', category: 'Women\'s Football', url: 'https://i.imgur.com/1SD1rxC.jpeg', title: 'Women\'s Football 11' },
+    { id: '58', category: 'Women\'s Football', url: 'https://i.imgur.com/bBHFnoQ.jpeg', title: 'Women\'s Football 12' },
+    { id: '59', category: 'Women\'s Football', url: 'https://i.imgur.com/OIs7G0Q.jpeg', title: 'Women\'s Football 13' },
+    { id: '60', category: 'Women\'s Football', url: 'https://i.imgur.com/qw8JSuO.jpeg', title: 'Women\'s Football 14' },
+    { id: '61', category: 'Women\'s Football', url: 'https://i.imgur.com/L00gwCj.jpeg', title: 'Women\'s Football 15' },
+    { id: '62', category: 'Women\'s Football', url: 'https://i.imgur.com/odTKk0w.jpeg', title: 'Women\'s Football 16' },
+    { id: '63', category: 'Women\'s Football', url: 'https://i.imgur.com/RKniinm.jpeg', title: 'Women\'s Football 17' },
+    { id: '64', category: 'Women\'s Football', url: 'https://i.imgur.com/C6HwXO2.jpeg', title: 'Women\'s Football 18' },
+    { id: '65', category: 'Women\'s Football', url: 'https://i.imgur.com/bf8mH0q.jpeg', title: 'Women\'s Football 19' },
+    { id: '66', category: 'Women\'s Football', url: 'https://i.imgur.com/wNEVVBM.jpeg', title: 'Women\'s Football 20' },
+    { id: '67', category: 'Women\'s Football', url: 'https://i.imgur.com/DlpqIL8.jpeg', title: 'Women\'s Football 21' },
+    { id: '68', category: 'Women\'s Football', url: 'https://i.imgur.com/D0hmF1J.jpeg', title: 'Women\'s Football 22' },
+    { id: '69', category: 'Women\'s Football', url: 'https://i.imgur.com/J7MKRpl.jpeg', title: 'Women\'s Football 23' },
+    { id: '70', category: 'Women\'s Football', url: 'https://i.imgur.com/NcqSuLL.jpeg', title: 'Women\'s Football 24' },
+    { id: '71', category: 'Women\'s Football', url: 'https://i.imgur.com/vkzBYA0.jpeg', title: 'Women\'s Football 25' },
+    { id: '72', category: 'Women\'s Football', url: 'https://i.imgur.com/N3pLSGr.jpeg', title: 'Women\'s Football 26' },
+    { id: '73', category: 'Women\'s Football', url: 'https://i.imgur.com/buK74Qr.jpeg', title: 'Women\'s Football 27' },
+    { id: '74', category: 'Women\'s Football', url: 'https://i.imgur.com/oxzxmRf.jpeg', title: 'Women\'s Football 28' },
+    { id: '75', category: 'Women\'s Football', url: 'https://i.imgur.com/Ru3KFMF.jpeg', title: 'Women\'s Football 29' },
+    { id: '76', category: 'Women\'s Football', url: 'https://i.imgur.com/V3P9eO8.jpeg', title: 'Women\'s Football 30' },
+    { id: '77', category: 'Women\'s Football', url: 'https://i.imgur.com/RR8ohwG.jpeg', title: 'Women\'s Football 31' },
+    { id: '78', category: 'Women\'s Football', url: 'https://i.imgur.com/6L7Xtq3.jpeg', title: 'Women\'s Football 32' },
+    { id: '79', category: 'Women\'s Football', url: 'https://i.imgur.com/RrVvyb9.jpeg', title: 'Women\'s Football 33' },
+    { id: '80', category: 'Women\'s Football', url: 'https://i.imgur.com/grHzJSE.jpeg', title: 'Women\'s Football 34' },
+    { id: '81', category: 'Women\'s Football', url: 'https://i.imgur.com/xw1lslD.jpeg', title: 'Women\'s Football 35' },
+    { id: '82', category: 'Women\'s Football', url: 'https://i.imgur.com/25nmpCX.jpeg', title: 'Women\'s Football 36' },
+    { id: '83', category: 'Women\'s Football', url: 'https://i.imgur.com/qnpRVu3.jpeg', title: 'Women\'s Football 37' },
+    { id: '84', category: 'Women\'s Football', url: 'https://i.imgur.com/iMc38ae.jpeg', title: 'Women\'s Football 38' },
+    { id: '85', category: 'Women\'s Football', url: 'https://i.imgur.com/0yiEiGh.jpeg', title: 'Women\'s Football 39' },
+    { id: '86', category: 'Women\'s Football', url: 'https://i.imgur.com/TQMouTA.jpeg', title: 'Women\'s Football 40' },
+    { id: '87', category: 'Women\'s Football', url: 'https://i.imgur.com/LuGBOmE.jpeg', title: 'Women\'s Football 41' },
+    { id: '88', category: 'Women\'s Football', url: 'https://i.imgur.com/jCfWE5A.jpeg', title: 'Women\'s Football 42' },
+    { id: '89', category: 'Women\'s Football', url: 'https://i.imgur.com/ta95ZBh.jpeg', title: 'Women\'s Football 43' },
+    { id: '90', category: 'Women\'s Football', url: 'https://i.imgur.com/aNee6iX.jpeg', title: 'Women\'s Football 44' },
+    { id: '91', category: 'Women\'s Football', url: 'https://i.imgur.com/InV5QWb.jpeg', title: 'Women\'s Football 45' },
+
+    // Other Sports
+    { id: '18', category: 'Other Sports', url: 'https://i.imgur.com/YAeTnOQ.jpeg', title: 'Autres sports 1' },
+    { id: '19', category: 'Other Sports', url: 'https://i.imgur.com/55Is0NH.jpeg', title: 'Autres sports 2' },
+    { id: '20', category: 'Other Sports', url: 'https://i.imgur.com/ElhlqKV.jpeg', title: 'Autres sports 3' },
   ];
 
-  const videos = [
-    {
-      id: '1',
-      category: 'Mariage',
-      url: 'https://vimeo.com/1079550026',
-      title: 'Mariage religieux',
-      thumbnail: 'https://i.imgur.com/KLve6B3.jpeg',
-      duration: '1:24',
-      description: 'Un mariage magique sur Paris',
-      tags: ['Mariage', 'religieux', 'Été']
-    },
-    {
-      id: '2',
-      category: 'Interview',
-      url: 'https://vimeo.com/1078498776',
-      title: 'Interview de Nassima',
-      thumbnail: 'https://i.imgur.com/3fFcCB1.jpeg',
-      duration: '7:58',
-      description: 'Interview de Nassima pour la journée internationale des droits de la femme',
-      tags: ['interview', 'élocution', 'communication face caméra']
-    },
-    {
-      id: '3',
-      category: 'Sport',
-      url: 'https://vimeo.com/1079550401',
-      title: 'Journée sportive avec l"Ecole de la 2e chance"',
-      thumbnail: 'https://i.imgur.com/cusGwVF.jpeg',
-      duration: '2:11',
-      description: 'Récapitulatif vidéo de la journée 100% sportive',
-      tags: ['Sport', 'football', 'Compétition', 'bubble foot']
-    }
-  ];
-
-  const filteredMedia = mediaType === 'photos'
-    ? (activeCategory === 'Tous' ? photos : photos.filter(photo => photo.category === activeCategory))
-    : (activeCategory === 'Tous' ? videos : videos.filter(video => video.category === activeCategory));
+  const filteredPhotos = activePhotoCategory === 'Tous'
+    ? photos
+    : photos.filter(photo => photo.category === activePhotoCategory);
 
   const breakpointColumns = {
     default: 3,
@@ -93,81 +174,163 @@ const Portfolio = () => {
   };
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-4xl font-bold mb-6">Notre Portfolio</h1>
+    <div className="min-h-screen bg-gray-950">
+      {/* Hero Section */}
+      <div className="relative h-[50vh] bg-black mb-20">
+        <img
+          src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1920&q=80"
+          alt="Football Portfolio"
+          className="w-full h-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80" />
+        <div className="absolute inset-0 flex items-center justify-center text-center">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl px-4"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Nos productions football
+            </h1>
+            <p className="text-xl text-white/80">
+              Découvrez une sélection de projets réalisés au cœur des clubs : matchday, académies et storytelling visuel.
+            </p>
+          </motion.div>
+        </div>
+      </div>
 
-          {/* Media Type Switcher */}
-          <div className="flex justify-center gap-4 mb-8">
-            <button
-              onClick={() => {
-                setMediaType('photos');
-                setActiveCategory('Tous');
-              }}
-              className={classNames(
-                'flex items-center gap-2 px-6 py-2 rounded-full transition-colors',
-                mediaType === 'photos' ? 'bg-black text-white' : 'bg-gray-100 hover:bg-gray-200'
-              )}
-            >
-              <ImageIcon className="h-5 w-5" />
-              Photos
-            </button>
-            <button
-              onClick={() => {
-                setMediaType('videos');
-                setActiveCategory('Tous');
-              }}
-              className={classNames(
-                'flex items-center gap-2 px-6 py-2 rounded-full transition-colors',
-                mediaType === 'videos' ? 'bg-black text-white' : 'bg-gray-100 hover:bg-gray-200'
-              )}
-            >
-              <Play className="h-5 w-5" />
-              Vidéos
-            </button>
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 pb-20">
+        {/* Video Section */}
+        <motion.section
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-24"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">Projets vidéo</h2>
+
+          {/* Main Featured Video */}
+          <div className="grid lg:grid-cols-3 gap-8 mb-12">
+            <div className="lg:col-span-2">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-2xl"
+              >
+                <div style={{padding:'56.25% 0 0 0', position:'relative', height: '0'}}>
+                  <iframe
+                    src="https://player.vimeo.com/video/1164438180"
+                    style={{position:'absolute', top:0, left:0, width:'100%', height:'100%'}}
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                    title="Inside Academy U18"
+                  />
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="flex flex-col justify-center">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h3 className="text-2xl font-bold text-white mb-3">Inside Academy – U18</h3>
+                <p className="text-gray-300 mb-6">
+                  Série immersive réalisée au cœur d'une équipe U18 avec accès aux vestiaires, entraînements et matchs.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['Documentary', 'Academy', 'U18'].map(tag => (
+                    <span key={tag} className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-medium">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </div>
 
-          {/* Categories */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {(mediaType === 'photos' ? photoCategories : videoCategories).map((category) => (
-              <button
+          {/* Video Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { id: '1', title: 'Matchday Cinematic', icon: '🎬' },
+              { id: '2', title: 'Player Highlight', icon: '⚡' },
+              { id: '3', title: 'Club Story', icon: '📖' },
+              { id: '4', title: 'Academy Training', icon: '🎓' }
+            ].map(item => (
+              <motion.div
+                key={item.id}
+                whileHover={{ y: -8 }}
+                className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800 hover:border-white/30 transition-colors group cursor-pointer"
+              >
+                <div className="relative aspect-video bg-black flex items-center justify-center overflow-hidden">
+                  <img
+                    src={`https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80`}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-40"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/60 transition-colors">
+                    <div className="bg-white/20 p-4 rounded-full">
+                      <Play className="h-8 w-8 text-white" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-lg font-semibold text-white">{item.title}</p>
+                  <p className="text-gray-400 text-sm mt-2">{item.icon} Production vidéo</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Photography Section */}
+        <motion.section
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">Photographie football</h2>
+
+          {/* Filters */}
+          <div className="flex flex-wrap gap-3 mb-12">
+            {photoCategories.map(category => (
+              <motion.button
                 key={category}
-                onClick={() => setActiveCategory(category)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setActivePhotoCategory(category)}
                 className={classNames(
-                  'px-6 py-2 rounded-full transition-colors',
-                  activeCategory === category
-                    ? 'bg-black text-white'
-                    : 'bg-gray-100 hover:bg-gray-200'
+                  'px-6 py-2 rounded-full font-semibold transition-all',
+                  activePhotoCategory === category
+                    ? 'bg-white text-black'
+                    : 'bg-gray-800 text-white hover:bg-gray-700'
                 )}
               >
                 {category}
-              </button>
+              </motion.button>
             ))}
           </div>
-        </motion.div>
 
-        <AnimatePresence mode="wait">
-          {mediaType === 'photos' ? (
+          {/* Photo Grid */}
+          <AnimatePresence mode="wait">
             <PhotoProvider>
               <Masonry
                 breakpointCols={breakpointColumns}
                 className="flex -ml-4 w-auto"
                 columnClassName="pl-4 bg-clip-padding"
               >
-                {filteredMedia.map((photo: any) => (
+                {filteredPhotos.map((photo, index) => (
                   <motion.div
                     key={photo.id}
                     layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5, delay: index * 0.05 }}
                     className="mb-4"
                   >
                     <PhotoView src={photo.url}>
@@ -175,11 +338,14 @@ const Portfolio = () => {
                         <img
                           src={photo.url}
                           alt={photo.title}
-                          className="w-full transform group-hover:scale-105 transition-transform duration-500"
+                          className="w-full transform group-hover:scale-110 transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-opacity duration-300 flex items-center justify-center">
-                          <p className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-opacity duration-300 flex flex-col items-center justify-center">
+                          <p className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center font-semibold">
                             {photo.title}
+                          </p>
+                          <p className="text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm mt-2">
+                            {photo.category}
                           </p>
                         </div>
                       </div>
@@ -188,94 +354,88 @@ const Portfolio = () => {
                 ))}
               </Masonry>
             </PhotoProvider>
-          ) : (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {filteredMedia.map((video: any) => (
-                <motion.div
-                  key={video.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden"
-                >
-                  <div className="relative aspect-video">
-                    {video.id === '2' ? (
-                      <div style={{padding:'56.25% 0 0 0', position:'relative'}}>
-                        <iframe 
-                          src="https://player.vimeo.com/video/1078498776?h=965d778016&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" 
-                          style={{position:'absolute', top:0, left:0, width:'100%', height:'100%'}} 
-                          frameBorder="0" 
-                          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-                          title="Nassima Interview"
-                        />
-                      </div>
-                    ) : video.id === '1' ? (
-                      <div style={{padding:'56.25% 0 0 0', position:'relative'}}>
-                        <iframe 
-                          src="https://player.vimeo.com/video/1079550026?h=9ed397897b&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" 
-                          style={{position:'absolute', top:0, left:0, width:'100%', height:'100%'}} 
-                          frameBorder="0" 
-                          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-                          title="Mariage religieux sur Paris"
-                        />
-                      </div>
-                    ) : video.id === '3' ? (
-                      <div style={{padding:'56.25% 0 0 0', position:'relative'}}>
-                        <iframe 
-                          src="https://player.vimeo.com/video/1079550401?h=596705560e&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" 
-                          style={{position:'absolute', top:0, left:0, width:'100%', height:'100%'}} 
-                          frameBorder="0" 
-                          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-                          title="Vidéo entreprise et association"
-                        />
-                      </div>
-                    ) : (
-                      <ReactPlayer
-                        url={video.url}
-                        width="100%"
-                        height="100%"
-                        light={video.thumbnail}
-                        controls
-                        playIcon={
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="bg-black bg-opacity-50 rounded-full p-4">
-                              <Play className="h-8 w-8 text-white" />
-                            </div>
-                          </div>
-                        }
-                      />
-                    )}
+          </AnimatePresence>
+        </motion.section>
+
+        {/* Case Study Section */}
+        <motion.section
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-24 pt-20 border-t border-gray-800"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">Étude de cas</h2>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="bg-gradient-to-br from-gray-900 to-black rounded-lg p-8 border border-gray-800">
+                <div className="flex items-center gap-3 mb-6">
+                  <Trophy className="h-8 w-8 text-white" />
+                  <h3 className="text-2xl font-bold text-white">CS Meaux Academy</h3>
+                </div>
+
+                <p className="text-gray-300 text-lg mb-8">
+                  Production photo et vidéo immersive pour un club de plus de 2000 licenciés en Île-de-France.
+                </p>
+
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-white font-semibold mb-2">Services fournis</h4>
+                    <ul className="text-gray-400 space-y-2">
+                      <li>✓ Couverture photo matchday complète</li>
+                      <li>✓ Contenus vidéo et reels réseaux sociaux</li>
+                      <li>✓ Production immersive académie</li>
+                      <li>✓ Reportage entraînements et matchs clés</li>
+                    </ul>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{video.title}</h3>
-                    <p className="text-gray-600 mb-4">{video.description}</p>
-                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                      <div className="flex items-center">
-                        <Clock className="h-4 w-4 mr-1" />
-                        {video.duration}
-                      </div>
-                      <div className="flex items-center">
-                        <Tag className="h-4 w-4 mr-1" />
-                        {video.category}
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {video.tags.map((tag: string) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 bg-gray-100 rounded-full text-sm"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+
+                  <div>
+                    <h4 className="text-white font-semibold mb-2">Résultats</h4>
+                    <ul className="text-gray-400 space-y-2">
+                      <li>✓ 50+ contenus produits par saison</li>
+                      <li>✓ +300% engagement réseaux sociaux</li>
+                      <li>✓ Présence visuelle renforcée</li>
+                    </ul>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </AnimatePresence>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="grid grid-cols-2 gap-4"
+            >
+              <div className="relative aspect-square rounded-lg overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80"
+                  alt="Case study"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="relative aspect-square rounded-lg overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80"
+                  alt="Case study"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="col-span-2 relative aspect-square rounded-lg overflow-hidden lg:col-span-1">
+                <img
+                  src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80"
+                  alt="Case study"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </motion.section>
       </div>
     </div>
   );

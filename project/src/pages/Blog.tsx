@@ -1,189 +1,274 @@
 import React, { useState } from 'react';
-import { Calendar, User, ArrowRight, ArrowLeft, Film, Circle, Leaf, PlaneTakeoff, Building, Compass, Landmark, Home, Camera, Bot, Brain, Palette, Rocket, Target, Moon, Heart } from 'lucide-react';
+import { Calendar, User, ArrowRight, ArrowLeft, Film, Zap, Eye, Lightbulb, Target, BarChart3, Clapperboard, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function BlogPreview() {
   const [showArticle, setShowArticle] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('Tous');
   const navigate = useNavigate();
 
   const posts = [
     {
       id: 1,
-      title: 'Les tendances photo mariage 2025',
-      excerpt: 'Découvrez les dernières tendances en matière de photographie de mariage pour cette année.',
-      image: 'https://i.imgur.com/UL2OYe4.jpeg',
+      title: 'Comment capturer l\'essence d\'une équipe en matchday',
+      excerpt: 'Guide pratique pour immortaliser chaque moment clé d\'une journée de match, des préparatifs aux célébrations.',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80',
       date: '15 Mars 2025',
-      author: 'Sophie',
-      category: 'Mariage',
+      author: 'Bakar',
+      category: 'Matchday Stories',
       link: '#',
       fullContent: {
-        title: "Les tendances photo de mariage 2024-2025",
-        intro: "Le monde de la photographie de mariage évolue constamment, reflétant les aspirations des couples modernes. Pour 2024-2025, plusieurs tendances émergent, offrant des approches innovantes pour capturer l'essence de ce jour unique.",
+        title: "Comment capturer l'essence d'une équipe en matchday",
+        intro: "Le matchday est le moment où l'émotion atteint son paroxysme. En tant que producteur visuel, savoir capturer ces instants authentiques demande préparation, réactivité et compréhension du jeu. Voici comment maximiser vos opportunités photo et vidéo lors d'un match.",
         sections: [
           {
-            title: "Photographie cinématographique",
+            title: "Préparation et scouting avant le match",
+            icon: <Target className="w-6 h-6" />,
+            content: "Arrivez au moins une heure avant le coup d'envoi. Reconnaissez les lieux, testez votre équipement et identifiez les meilleures positions de prise de vue selon la luminosité et la position du soleil. Discutez avec l'entraîneur pour comprendre la tactique et prévoir les zones d'action. Vérifiez vos batteries, cartes SD et réglages ISO pour chaque conditions lumineuses possibles."
+          },
+          {
+            title: "Les moments clés à ne pas manquer",
+            icon: <Clapperboard className="w-6 h-6" />,
+            content: "1. Avant le match: échauffement, hymnes et poignées de main. 2. Premières minutes: intensité maximale et engagement physique. 3. Duels aériens et actions techniques: les moments visuellement les plus forts. 4. Buts et célébrations: émotions brutes et authentiques. 5. Remplaçants et banc: reaction des joueurs, tension. 6. Fin du match: victoire, déception et respect mutuel. Documentez chaque phase pour créer une narration complète."
+          },
+          {
+            title: "Réglages techniques pour l'action",
+            icon: <Zap className="w-6 h-6" />,
+            content: "Vitesse d'obturation: minimum 1/1000s en conditions optimales, 1/500s en journée couverte. Ouverture: f/2.8 à f/5.6 selon la lumière. ISO: ajustez de 400 à 3200 selon les conditions. Mode autofocus continu (AI Servo) pour suivre les joueurs. Teleobjectif 70-200mm ou 100-400mm pour capturer l'action à distance. Mode rafale haute vitesse pour saisir le moment décisif des duels."
+          },
+          {
+            title: "Storytelling visuel: raconter l'histoire du match",
+            icon: <Eye className="w-6 h-6" />,
+            content: "Ne vous contentez pas de photographier l'action. Capturez les regards concentrés, les encouragements entre joueurs, les réactions du coach, l'ambiance du public. Ces détails humains créent une connexion émotionnelle. Variez les cadrages: plans larges pour le contexte, gros plans pour les émotions, détails pour les éléments distinctifs du club."
+          },
+          {
+            title: "Vidéo matchday: composition de sujets cinématiques",
             icon: <Film className="w-6 h-6" />,
-            content: "Inspirée du septième art, cette tendance mise sur des compositions soignées, des jeux de lumière dramatiques et des mouvements fluides pour créer des images dignes d'un film. Elle vise à raconter une histoire visuelle captivante, pleine d'émotions et d'authenticité."
-          },
-          {
-            title: "Retour du noir et blanc",
-            icon: <Circle className="w-6 h-6" />,
-            content: "Le noir et blanc fait un retour remarqué, apportant une touche intemporelle et élégante aux clichés. Cette esthétique met en valeur les émotions, les textures et les contrastes, offrant des images à la fois artistiques et profondes."
-          },
-          {
-            title: "Mariages éco-responsables",
-            icon: <Leaf className="w-6 h-6" />,
-            content: "La conscience écologique influence également la photographie de mariage. Les couples privilégient des lieux naturels, des décors durables et des approches minimalistes, permettant de capturer des moments authentiques dans des environnements respectueux de l'environnement."
-          },
-          {
-            title: "Photographie documentaire",
-            icon: <Camera className="w-6 h-6" />,
-            content: "Cette approche vise à capturer les moments spontanés et sincères, sans mise en scène. Le photographe devient un observateur discret, immortalisant les émotions brutes et les interactions naturelles tout au long de la journée."
-          },
-          {
-            title: "Vues aériennes et perspectives innovantes",
-            icon: <PlaneTakeoff className="w-6 h-6" />,
-            content: "L'utilisation de drones et de techniques innovantes permet de capturer des perspectives uniques, mettant en valeur les lieux de cérémonie et offrant des souvenirs spectaculaires. Ces vues aériennes ajoutent une dimension époustouflante à l'album de mariage."
+            content: "Utilisez plusieurs caméras si possible pour des angles complémentaires. Capturez les mouvements fluides des joueurs, les transitions rapides. Enregistrez le son ambient (cris, célébrations, ambiance) pour riche post-production. Créez des plans de transition: public, logo club, banc de touche. Montage: commencez lentement avec les préparatifs, accélérez vers l'action, terminée avec émotions intensifies."
           }
         ],
-        conclusion: "En tant que photographe basé à Meaux, je m'engage à intégrer ces tendances pour offrir à chaque couple des souvenirs uniques et personnalisés. Si vous planifiez votre mariage en 2025 et souhaitez une approche moderne et authentique, n'hésitez pas à me contacter pour discuter de votre projet."
+        conclusion: "Le matchday parfait combine technique maîtrisée et instinct artistique. Plus vous couvrez de matches, plus vous apprendrez à anticiper et à raconter des histoires visuelles captivantes qui reflètent l'âme d'une équipe."
+      }
+    },
+    {
+      id: 2,
+      title: 'Immersion en académie : filmer le développement des jeunes talents',
+      excerpt: 'Les codes de la production vidéo dans un environnement d\'académie pour capturer croissance et passion.',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80',
+      date: '10 Mars 2025',
+      author: 'Bakar',
+      category: 'Behind the Scenes',
+      link: '#',
+      fullContent: {
+        title: "Immersion en académie : filmer le développement des jeunes talents",
+        intro: "Les académies de football sont des espaces d'émotions brutes où de jeunes talents rêvent de carrière professionnelle. Filmer cette réalité demande discrétion, éthique et compréhension de l'environnement. Découvrez comment créer des contenus immersifs qui capturent cette énergie unique.",
+        sections: [
+          {
+            title: "Accès et trust-building avec les joueurs",
+            icon: <Shield className="w-6 h-6" />,
+            content: "Le premier défi est d'établir la confiance. Les jeunes joueurs peuvent être timides face à la caméra. Commencez par des interactions informelles, laissez-les s'habituer à votre présence. Parlez football avec eux, montrez-leur les contenus que vous créez. Présentez-vous d'abord comme quelqu'un qui raconte leur histoire, pas comme quelqu'un qui les filme. Cette approche humaine transformera votre travail."
+          },
+          {
+            title: "Moments importants à couvrir",
+            icon: <Eye className="w-6 h-6" />,
+            content: "Vestiaires: moments de détente, plaisanteries, focus avant match. Entraînements tactiques: concentration des joueurs, feedback des coachs. Duels amicaux: intensité de la compétition. Moments de doute et déception: caractère des joueurs. Réussites et buts: joie authentique. Interactions avec les coachs: mentorat et développement. Repas et vie de groupe: camaraderie et dynamique d'équipe."
+          },
+          {
+            title: "Équipement adapté pour une mobilité maximale",
+            icon: <Clapperboard className="w-6 h-6" />,
+            content: "Caméra compacte (GoPro, DJI Osmo) pour la mobilité en vestiaire. Drone pour des vues aériennes du terrain. Microphone directionnel pour capturer le son des entraînements. Batterie de rechange et stockage SD amplifié pour longues journées. Gilet de production pour rester discret et professionnel. Privilégiez la mobilité à la puissance brute."
+          },
+          {
+            title: "Édition : créer une narrative de croissance",
+            icon: <Film className="w-6 h-6" />,
+            content: "Structurez vos vidéos autour d'une progression: introduction du joueur, ses défis, ses forces, les entraînements intenses, les matchs, les moments de réflexion. Utilisez des musiques qui amplifient les émotions. Les interviews courtes des joueurs et coachs ajoutent profondeur et authenticité. Les ralentis pour les actions brillantes. Les accélérés pour montrer l'intensité répétée des entraînements."
+          },
+          {
+            title: "Respecter l'éthique et les permissions",
+            icon: <Shield className="w-6 h-6" />,
+            content: "Obtenez toujours les permissions parentales pour les mineurs. Respectez la confidentialité du club et des joueurs. Ne publiez pas de contenu sans accord. Parlez ouvertement de votre intention de partage du contenu. Créez un contrat simple expliquant les usages du contenu filmé. Cette rigueur protège toutes les parties et renforce votre crédibilité professionnelle."
+          }
+        ],
+        conclusion: "Filmer une académie n'est pas juste documenter; c'est honorer le rêve et la dedication de jeunes athlètes. Quand vous le faites avec respect et sensibilité, vos contenus deviennent des histoires inspirantes qui marquent les esprits."
+      }
+    },
+    {
+      id: 3,
+      title: '5 types de contenus vidéo qui engagent les fans de football',
+      excerpt: 'Des reels au documentaires : les formats de contenu football qui performent sur les réseaux sociaux.',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80',
+      date: '5 Mars 2025',
+      author: 'Bakar',
+      category: 'Football Media',
+      link: '#',
+      fullContent: {
+        title: "5 types de contenus vidéo qui engagent les fans de football",
+        intro: "À l'ère des réseaux sociaux, la durée du contenu n'est plus un critère d'engagement. Ce qui compte : l'émotion, l'authenticité et la narration. Voici 5 formats de contenu qui performent dans l'univers du football.",
+        sections: [
+          {
+            title: "1. Les reels 15-30 secondes (Matchday Highlights)",
+            icon: <Zap className="w-6 h-6" />,
+            content: "Le format reines des réseaux sociaux. Montrez les meilleures actions en boucle, avec musique énergique. Commencez avec un moment fort, variez angles et vitesses. Ajoutez des textes courts: 'Golasso!', 'Quelle défense!'. Parfait pour partager immédiatement après les matchs. Publiez 2-3 reels par match sur Instagram et TikTok."
+          },
+          {
+            title: "2. Les Player Spotlight (60-90 secondes)",
+            icon: <Eye className="w-6 h-6" />,
+            content: "Focus sur un joueur avec ses meilleures actions, personnalité et interview courte. Structure: introduction, highlights de jeu, citation du joueur, transition vers prochaine action. Humanisez le joueur avec ses rites pré-match ou ses encouragements aux coéquipiers. Idéal pour développer des personas et créer des connexions fan-joueur."
+          },
+          {
+            title: "3. Les Documentary Shorts (5-15 minutes)",
+            icon: <Film className="w-6 h-6" />,
+            content: "Plongez dans la vie quotidienne d'un joueur, d'un coach ou d'un aspect du club. Couvrez: réveil, petit-déjeuner, entraînement, moments familiaux. Interviews intimes avec questions personnel. Montage lent et cinématographique. Musiques émotionnelles. Ces contenus créent de l'empathie profonde et changent la perception des fans sur le côté humain du sport."
+          },
+          {
+            title: "4. Les Behind-the-Scenes de production (30-60 secondes)",
+            icon: <Clapperboard className="w-6 h-6" />,
+            content: "Montrez votre processus: comment vous filmiez un match, les défis de la production, les équipements utilisés. Les fans de technologie et créateurs adorent ce contenu. 'Comment j'ai capturé ce goal?', 'Mon setup de production', 'Un jour dans la vie d'un content creator sportif'. Format plus niche mais très engageant pour une audience de créateurs."
+          },
+          {
+            title: "5. Les Club Stories et célébrations (2-5 minutes)",
+            icon: <BarChart3 className="w-6 h-6" />,
+            content: "Récit du match du point de vue émotionnel: nervosité avant, intensité pendant, euphorie après. Incluez réactions authentiques, célébrations, larmes de frustration. Utilisez des transitions rapides, la musique monte progressivement. Terminé avec une vue d'ensemble de la victoire ou leçon apprises en cas de défaite. Cela crée du lien émotionnel et encourage le partage viral."
+          }
+        ],
+        conclusion: "La clé du succès sur réseaux sociaux n'est pas la durée mais la pertinence et l'authenticité. Variez vos formats, testez, mesurez l'engagement et adaptez-vous. Les fans de football veulent se sentir partie de l'histoire, pas juste spectateurs."
       }
     },
     {
       id: 4,
-      title: 'Les meilleurs spots photo à Meaux',
-      excerpt: 'Découvrez les endroits les plus photogéniques de la ville de Meaux et ses environs.',
-      image: 'https://i.imgur.com/EkHlbcb.jpeg',
-      date: '1 Mars 2025',
-      author: 'Bakar',
-      category: 'Inspiration',
+      title: 'Techniques de composition photo pour des portraits de joueurs impactants',
+      excerpt: 'Comment utiliser la lumière, le cadrage et le contexte pour des portraits authentiques et professionnels.',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80',
+      date: '28 Février 2025',
+      author: 'Sophie',
+      category: 'Creator Tips',
       link: '#',
       fullContent: {
-        title: "Les meilleurs spots photo à Meaux et ses environs",
-        intro: "Meaux, ville d'art et d'histoire en Île-de-France, offre une multitude de lieux photogéniques. Des ruelles médiévales aux vastes espaces naturels, découvrez les spots incontournables pour capturer des images mémorables.",
+        title: "Techniques de composition photo pour des portraits de joueurs impactants",
+        intro: "Le portrait d'athlète n'est pas qu'une photo technique: c'est un exercice de communication visuelle. Que ce soit en studio ou sur le terrain, certaines techniques transforment un simple portrait en image iconique qui capture l'essence du joueur.",
         sections: [
           {
-            title: "La Cité Épiscopale de Meaux",
-            icon: <Building className="w-6 h-6" />,
-            content: "Au cœur de Meaux, la Cathédrale Saint-Étienne, chef-d'œuvre gothique, domine la ville. Ses façades sculptées et ses vitraux colorés offrent un cadre majestueux pour des clichés architecturaux. Le Jardin Bossuet, attenant, avec ses allées symétriques et ses parterres fleuris, est idéal pour des portraits élégants."
+            title: "Utiliser la lumière pour créer de la profondeur",
+            icon: <Lightbulb className="w-6 h-6" />,
+            content: "En lumière naturelle: positionnez le joueur de manière à créer des ombres intéressantes sur le visage (lumière Rembrandt: l'ombre d'un côté crée du drame). En studio: utilisez 3 sources lumière - clé (principale), fill (adoucit les ombres) et backlight (sépare du fond). L'éclairage latéral crée de la texture et du caractère. Évitez l'éclairage plat qui rend terne."
           },
           {
-            title: "Le Parc du Pâtis",
-            icon: <Leaf className="w-6 h-6" />,
-            content: "Plus grand parc urbain d'Île-de-France, le Parc du Pâtis s'étend sur plus de 150 hectares. Ses sentiers bordés d'arbres, ses plans d'eau et ses prairies offrent une diversité de décors naturels pour des séances photo en plein air."
+            title: "Règle de composition : au-delà des tiers",
+            icon: <Target className="w-6 h-6" />,
+            content: "Règle des tiers: placez le sujet sur les lignes ou intersections des tiers pour plus d'intérêt dynamique. Symétrie: parfois, centrer le joueur crée une puissance. Diagonales: les lignes diagonales guide l'oeil et créent du mouvement. Négatif space: laissez de l'espace au-dessus de la tête pour l'énergie et la croissance. Remplissez le cadre: éliminéz les distractions, focalisez sur le sujet."
           },
           {
-            title: "Les bords de Marne",
-            icon: <Compass className="w-6 h-6" />,
-            content: "Les rives de la Marne, avec leurs berges arborées et leurs reflets changeants, sont propices à des prises de vue paisibles. Que ce soit pour des photos de paysage ou des scènes de vie, ce cadre naturel apporte une touche de sérénité à vos clichés."
+            title: "Contexte vs neutralité",
+            icon: <Eye className="w-6 h-6" />,
+            content: "Portrait en studio: fond simple (noir, blanc, dégradé) pour maximum de focus. Fond flou (bokeh) avec stadion ou entraînement en arrière-plan: contexte subtle qui raconte qui est ce joueur. Environnement du club: stade, vestiaires, terrain - contexte fort mais doit restez secondaire. Le joueur reste le sujet principal, le contexte doit l'amplifier pas le distraire."
           },
           {
-            title: "Le Musée de la Grande Guerre",
-            icon: <Landmark className="w-6 h-6" />,
-            content: "Avec son architecture contemporaine et ses expositions en plein air, le Musée de la Grande Guerre propose un contraste intéressant entre modernité et mémoire historique. Les espaces autour du musée sont propices à des compositions originales."
+            title: "Direction du regard et émotion",
+            icon: <Eye className="w-6 h-6" />,
+            content: "Regard vers caméra: connexion directe avec spectateur, puissance et confiance. Regard vers côté: introspection, mystère. Regard vers le bas: contemplation, humilité. Yeux à la même hauteur que l'appareil ou légèrement en-dessous: flatteur. Demandez au joueur de penser à quelque chose de personnel (un but marqué, une famille) pour une émotion authentique dans les yeux, pas juste un sourire forcer."
           },
           {
-            title: "Le Jardin Bossuet",
-            icon: <Leaf className="w-6 h-6" />,
-            content: "Situé à proximité de la cathédrale, le Jardin Bossuet est un jardin à la française offrant des allées symétriques, des parterres fleuris et des perspectives harmonieuses. C'est un cadre idéal pour des portraits élégants ou des photos de couple romantiques."
+            title: "Post-production subtile pour le portrait",
+            icon: <Clapperboard className="w-6 h-6" />,
+            content: "Correction chromatique: rehaussez doucement les couleurs du maillot, peau. Netteté: augmentez légèrement la clarté des yeux. Vignettage subtle: assombrit légèrement les bords pour guider vers le centre. Désaturation sélective: si vous utilisez couleur, désaturez le fond pour plus de focus. Évitez les retouches excessives: la marque BKR Studio, c'est l'authenticité du joueur, pas une version sur-retouchée."
           }
         ],
-        extendedSections: [
-          {
-            title: "Château de Champs-sur-Marne",
-            icon: <Home className="w-6 h-6" />,
-            content: "À environ 30 km de Meaux, ce château du XVIIIe siècle est entouré de jardins à la française. Son architecture élégante et ses allées symétriques offrent un cadre princier pour des séances photo romantiques."
-          },
-          {
-            title: "Parc de Rentilly à Bussy-Saint-Martin",
-            icon: <Leaf className="w-6 h-6" />,
-            content: "Ce parc de 120 hectares combine nature et art contemporain. Le château de Rentilly, avec sa façade en miroir, et les vastes espaces verts offrent des décors variés, particulièrement magnifiques en automne."
-          },
-          {
-            title: "Forêt de Fontainebleau – Sables du Cul de Chien",
-            icon: <Compass className="w-6 h-6" />,
-            content: "À environ 65 km de Meaux, ce site naturel est célèbre pour ses formations rocheuses et ses étendues de sable fin. Un lieu unique pour des photos en pleine nature, offrant des décors sauvages et dépaysants."
-          },
-          {
-            title: "Parc naturel de Coupvray",
-            icon: <Leaf className="w-6 h-6" />,
-            content: "Ce parc champêtre est idéal pour des séances photo en couple. Ses sentiers verdoyants, ses plans d'eau et ses paysages bucoliques créent une atmosphère intime et romantique."
-          }
-        ],
-        conclusion: "Que vous soyez photographe professionnel ou amateur passionné, Meaux et ses environs offrent une richesse de décors pour exprimer votre créativité. N'hésitez pas à explorer ces lieux et à partager vos plus beaux clichés."
+        conclusion: "Un grand portrait d'athlète combine technique photographique solide avec understanding psychologique et émotionnel. C'est en repetant et en testant différentes approches que vous développerez votre style signature et capturerez des images qui deviennent des icônes pour les clubs."
       }
     },
     {
       id: 5,
-      title: 'Photographes vs IA : menace ou opportunité ?',
-      excerpt: 'L\'intelligence artificielle est-elle en train de remplacer les créateurs visuels ? Décryptage.',
-      image: 'https://i.imgur.com/tS8LLre.jpeg',
-      date: '25 Février 2025',
+      title: 'Production vidéo match : équipement et workflow optimisé',
+      excerpt: 'Du scouting à l\'export final, tous les étapes pour une production vidéo matchday sans faille.',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80',
+      date: '20 Février 2025',
       author: 'Bakar',
-      category: 'Réflexion',
+      category: 'Football Media',
       link: '#',
       fullContent: {
-        title: "Photographes vs IA : menace ou opportunité ?",
-        intro: "L'intelligence artificielle (IA) transforme le paysage de la photographie. Entre automatisation des tâches et génération d'images, elle suscite autant d'enthousiasme que d'inquiétudes. Alors, l'IA est-elle une menace pour les photographes ou une opportunité à saisir ?",
+        title: "Production vidéo match : équipement et workflow optimisé",
+        intro: "Une couverture vidéo réussie d'un match est le résultat d'une préparation minutieuse, d'un équipement adapté et d'un workflow efficace. Voici comment organiser une production qui capture la totalité de l'événement sans stress logistique.",
         sections: [
           {
-            title: "L'IA : une alliée pour les photographes",
-            icon: <Camera className="w-6 h-6" />,
-            content: "De nombreux outils basés sur l'IA facilitent le travail des photographes. Des logiciels comme Adobe Photoshop et Lightroom intègrent des fonctionnalités automatisées pour la retouche, la suppression d'éléments indésirables ou l'amélioration de la netteté. Certains appareils photo utilisent également l'IA pour améliorer l'autofocus, détecter les visages et prédire les mouvements des sujets. Ces avancées permettent aux photographes de gagner du temps en post-production et de se concentrer davantage sur la créativité et la relation avec leurs clients."
+            title: "Configuration multi-caméra pour couverture complète",
+            icon: <Clapperboard className="w-6 h-6" />,
+            content: "Caméra 1 (principal): position élevée côté terrain pour captures d'action générale. Caméra 2 (wide): couverture depuis le coin pour les mouvements de joueurs. Caméra 3 (détails): gros plans des réactions, interactions, détails d'équipement. Caméra 4 (drone optionnel): vues aériennes dynamiques (si autorisé). Chaque caméra doit avoir batterie et stockage suffisants indépendants pour ne pas dépendre des autres."
           },
           {
-            title: "L'IA générative : une concurrence pour certains secteurs",
-            icon: <Bot className="w-6 h-6" />,
-            content: "L'émergence de l'IA générative, capable de créer des images réalistes à partir de simples descriptions textuelles, pose des défis pour certains domaines de la photographie, notamment la photographie de stock. Des outils comme Midjourney ou DALL·E peuvent produire des milliards d'images par an, surpassant la productivité des photographes traditionnels. Certaines agences intègrent désormais ces images générées par IA dans leurs catalogues, obligeant les photographes à se démarquer en proposant des images de qualité supérieure ou en se concentrant sur des niches spécifiques."
+            title: "Préparation 48h avant le match",
+            icon: <Target className="w-6 h-6" />,
+            content: "Vérifiez les prévisions météo et adaptez réglages ISO/ouverture. Contactez le club pour permissions de filmer. Planifiez votre positionnement selon la position du terrain et du soleil. Rechargez batteries et testez équipement. Préparez feuille de coup avec spots clés à couvrir. Synchronisez horloges des caméras pour montage plus facile. Informez votre équipe (si vous en avez) de son rôle spécifique."
           },
           {
-            title: "L'humain au cœur de la photographie",
-            icon: <Brain className="w-6 h-6" />,
-            content: "Malgré les avancées de l'IA, la sensibilité artistique, l'émotion et la capacité à raconter une histoire restent des attributs propres aux photographes humains. L'IA peut reproduire des styles, mais elle ne peut pas remplacer l'expérience vécue, l'interaction avec le sujet ou l'intuition du photographe. Des photographes renommés, comme Annie Leibovitz, voient l'IA non pas comme une menace, mais comme un outil supplémentaire pour enrichir leur travail."
+            title: "Capture du son : couche souvent oubliée",
+            icon: <Zap className="w-6 h-6" />,
+            content: "Microphone directionnel pour ambiance terrain (cris, sifflets, impact ballon). Microphone pour interview après match. Enregistreur portable pour prise son haute qualité en parallèle. Prise son du diffuseur si disponible. Montage sonore est 50% du ressenti final - ne négliger pas. Le contrôle du niveau sonore durant la capture sauve des heures de post-production."
           },
           {
-            title: "S'adapter et innover",
-            icon: <Rocket className="w-6 h-6" />,
-            content: "Plutôt que de craindre l'IA, les photographes peuvent l'adopter pour améliorer leur efficacité et explorer de nouvelles avenues créatives. En combinant leur expertise avec les capacités de l'IA, ils peuvent offrir des services innovants et personnalisés à leurs clients."
+            title: "Workflow de montage post-production",
+            icon: <Film className="w-6 h-6" />,
+            content: "Transfert rapide des fichiers sur disque dur haute capacité. Création de dossiers organisés par caméra et type de contenu. Prévoyé: rough cut en 2-3h (pour contenu social rapide). Edit haute qualité en 1-2 jours. Couleur grading: 4-6h (cohérence visuelle). Son design: 3-4h. Export final dans tous les formats nécessaire (Instagram, YouTube, etc). Utilisez proxies basse qualité durant le montage pour meilleure performance logicielle."
+          },
+          {
+            title: "Liverable et distribution multi-plateforme",
+            icon: <BarChart3 className="w-6 h-6" />,
+            content: "Highlght 15-30s pour réseaux sociaux (jour du match). Résumé 3-5 min pour YouTube et site club. Documentaire complet 20-30 min pour archives et plateformes de streaming. Fichiers bruts pour le club (archivage). Différentes versions : avec et sans musique. Formats: 16:9 pour YouTube, 9:16 pour réels/TikTok, carré pour Instagram. Sous-titres français ET anglais pour maximum d'audience."
           }
         ],
-        conclusion: "En conclusion, l'IA représente à la fois un défi et une opportunité pour les photographes. Ceux qui sauront s'adapter et intégrer ces nouvelles technologies tout en préservant leur authenticité et leur créativité continueront à prospérer dans un environnement en constante évolution."
+        conclusion: "Une production vidéo de match bien exécutée devient un asset précieux : contenu social viral, archive historique pour le club, portfolio pour votre business. Investir en préparation sauve du temps en post-production et garantit la qualité finale."
       }
     },
     {
       id: 6,
-      title: 'Les bases de la photo pour débutant',
-      excerpt: 'Un guide pratique pour comprendre les réglages de base, la lumière et la composition.',
-      image: 'https://i.imgur.com/PPAfJfo.png',
-      date: '20 Février 2025',
-      author: 'Bakar',
-      category: 'Débutant',
+      title: 'Stratégie de contenu pour clubs : que filmer et pourquoi',
+      excerpt: 'Comment définir une calendrier de contenu aligné sur les objectifs du club et les attentes des fans.',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80',
+      date: '15 Février 2025',
+      author: 'Sophie',
+      category: 'Creator Tips',
       link: '#',
       fullContent: {
-        title: "Les bases de la photo pour débutant",
-        intro: "La photographie est un art accessible qui combine technique et créativité. Pour les débutants, maîtriser quelques principes fondamentaux peut considérablement améliorer la qualité des images. Voici un guide pratique pour vous aider à explorer différents types de photographie.",
+        title: "Stratégie de contenu pour clubs : que filmer et pourquoi",
+        intro: "Créer du contenu sans stratégie est comme tirer sans direction. Pour un club de football, une stratégie de contenu cohérente augmente l'engagement fan, renforce la marque club et crée des connexions émotionnelles durables.",
         sections: [
           {
-            title: "Photographier le sport (ex. : football)",
+            title: "Définir les objectifs du contenu",
             icon: <Target className="w-6 h-6" />,
-            content: "La photographie sportive exige de figer l'action rapide. Pour cela : Utilisez une vitesse d'obturation rapide, au minimum 1/500 s, voire 1/1000 s pour des sports comme le football, afin d'éviter le flou de mouvement. Privilégiez une grande ouverture (petit chiffre f/) pour laisser entrer plus de lumière et obtenir une vitesse d'obturation plus rapide. Ajustez la sensibilité ISO en fonction de la lumière disponible, en gardant à l'esprit qu'une valeur ISO plus élevée peut introduire du bruit. Un téléobjectif (200 mm ou plus) est souvent nécessaire pour capturer l'action à distance. Utilisez le mode autofocus continu (AI Servo ou AF-C) pour suivre les sujets en mouvement."
+            content: "1. Engagement community: reels court, TikTok, Instagram stories pour divertir et engager quotidiennement. 2. Education: comment débuter au foot, techniques de jeu, règles pour nouveaux fans. 3. Storytelling: donner du contexte humain aux joueurs, raconter l'histoire du club. 4. Transmission: archive pour générations futures, documentation de moments clés. 5. Sponsorship activation: contenu de valeur pour sponsors, création d'assets personalisés. Chaque clip produit doit servir un objectif ou contribuer à plusieurs simultanément."
           },
           {
-            title: "Photographier de nuit",
-            icon: <Moon className="w-6 h-6" />,
-            content: "La photographie de nuit présente des défis uniques en raison de la faible luminosité. Voici quelques conseils : Un trépied est indispensable pour stabiliser l'appareil lors de longues expositions. Utilisez une grande ouverture (f/2.8 ou plus) pour capter davantage de lumière. Ralentissez la vitesse d'obturation (par exemple 1/25 s ou plus lent) pour permettre à plus de lumière d'atteindre le capteur. Augmentez la sensibilité ISO, mais attention au bruit numérique. En mode manuel, faites la mise au point sur une source de lumière ou utilisez la mise au point automatique si votre appareil le permet. N'hésitez pas à tester différentes combinaisons de réglages pour obtenir l'effet désiré."
+            title: "Calendrier éditorial saisonnier",
+            icon: <BarChart3 className="w-6 h-6" />,
+            content: "Pré-saison: préparation physique, arrivées de joueurs, ambition de saison. Matchs en cours: highlights quotidiens, interviews post-match, coulisses. Blessures: profil d'un joueur absent, historique de son parcours au club. Vacances hiver: contenu de nostalgie, best-of de la première moitié. Fin de saison: bilan, émotions, remerciements. Offseason: coulisses de préparation, mercato, vision pour prochaine saison. Ce cadre assure contenu cohérent et pertinent toute l'année."
           },
           {
-            title: "Photographier un mariage",
-            icon: <Heart className="w-6 h-6" />,
-            content: "La photographie de mariage combine portrait, reportage et gestion d'événements. Voici quelques points essentiels : Rencontrez les mariés en amont pour comprendre leurs attentes et établir une \"shot list\" des moments clés à capturer. Prévoyez un équipement fiable, avec des batteries et cartes mémoire de rechange. Un flash externe peut être utile pour les lieux peu éclairés. Adoptez une approche discrète pour capturer des moments naturels et spontanés. Planifiez les photos de groupe à l'avance pour gagner du temps et éviter le stress. Soyez attentif aux détails et aux émotions pour raconter l'histoire unique de chaque couple."
+            title: "Types de contenu à produire chaque mois",
+            icon: <Clapperboard className="w-6 h-6" />,
+            content: "4-6 matchday reels (30s). 2-3 player spotlights (60s). 1 documentary profond (5-10 min). 2-3 behind-the-scenes court (30-60s). 1-2 interviews de joueurs ou staff. Contenu educational si pertinent. Contenu nostalgique ou celebratory. Cela crée momentum constant sans burnout de production. Chaque semaine produit une diversité qui maintient intérêt des fans."
+          },
+          {
+            title: "Engagement et feedback des fans",
+            icon: <Eye className="w-6 h-6" />,
+            content: "Lisez les commentaires et messages pour comprendre quel contenu résonne. Adaptez: si les portraits de joueurs performent, produisez-en plus. Si les behind-the-scenes engagent, priorisez l'accès. Créez des moments Q&A: 'Quel joueur voulez-vous voir en spotlight?', 'Proposez des idées de contenu'. Les fans qui co-créent deviennent des ambassadeurs. Utilisez les polls de réseaux sociaux pour diriger future production."
+          },
+          {
+            title: "Mesure du succès et ROI du contenu",
+            icon: <BarChart3 className="w-6 h-6" />,
+            content: "Métriques: vues, partages, commentaires, nouveau followers, durée visionnage moyenne. Comparez format pour identifier meilleur performer. Connectez contenu aux objectifs club: plus de spectateurs à domicile? Plus de merch vendu? Membership augmentés? Tracks ces indicateurs. Budget de production justifié par résultats mesurables. Reportez mensuellement au club avec insights et recommandations."
           }
         ],
-        conclusion: "En maîtrisant ces bases et en adaptant vos techniques aux différents types de photographie, vous développerez votre œil artistique et votre confiance en tant que photographe. N'oubliez pas que la pratique régulière et l'analyse de vos clichés sont essentielles pour progresser."
+        conclusion: "Une stratégie de contenu n'est pas un plan rigide mais une direction avec flexibilité pour adapt aux réalités. Les meilleures productions football combinent planification solide avec opportunisme créatif pour capturer les moments imprévisibles qui rendent le foot magique."
       }
     }
   ];
+
+  const categories = ['Tous', 'Football Media', 'Matchday Stories', 'Behind the Scenes', 'Creator Tips'];
+
+  const filteredPosts = activeCategory === 'Tous'
+    ? posts
+    : posts.filter(post => post.category === activeCategory);
 
   const openArticle = (post) => {
     setSelectedArticle(post);
@@ -198,123 +283,89 @@ export default function BlogPreview() {
 
   if (showArticle && selectedArticle) {
     return (
-      <div className="min-h-screen py-12 bg-gray-50">
+      <div className="min-h-screen py-12 bg-gray-950">
         <div className="max-w-4xl mx-auto px-4">
-          <button 
+          <motion.button
             onClick={closeArticle}
-            className="flex items-center mb-8 text-gray-600 hover:text-black transition-colors"
+            whileHover={{ x: -4 }}
+            className="flex items-center mb-8 text-white/70 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Retour au blog
-          </button>
-          
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          </motion.button>
+
+          <div className="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-800">
             <div className="h-80 overflow-hidden relative">
-              <img 
+              <img
                 src={selectedArticle.image}
-                alt={selectedArticle.title} 
+                alt={selectedArticle.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <h1 className="text-white text-4xl font-bold px-6 text-center">
                   {selectedArticle.fullContent.title}
                 </h1>
               </div>
             </div>
-            
+
             <div className="p-8">
-              <div className="flex items-center text-sm text-gray-500 mb-8">
-                <Calendar className="h-4 w-4 mr-2" />
-                <span>{selectedArticle.date}</span>
-                <User className="h-4 w-4 ml-6 mr-2" />
-                <span>{selectedArticle.author}</span>
-                <span className="ml-6 bg-black text-white px-3 py-1 rounded-full text-sm">
+              <div className="flex flex-wrap items-center text-sm text-gray-400 mb-8 gap-4">
+                <div className="flex items-center">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  <span>{selectedArticle.date}</span>
+                </div>
+                <div className="flex items-center">
+                  <User className="h-4 w-4 mr-2" />
+                  <span>{selectedArticle.author}</span>
+                </div>
+                <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm">
                   {selectedArticle.category}
                 </span>
               </div>
-              
-              <div className="prose max-w-none">
-                <p className="text-xl text-gray-700 mb-12 italic">
+
+              <div className="prose prose-invert max-w-none">
+                <p className="text-xl text-gray-300 mb-12 italic">
                   {selectedArticle.fullContent.intro}
                 </p>
-                
+
                 <div className="space-y-12">
                   {selectedArticle.fullContent.sections.map((section, index) => (
-                    <div key={index} className="flex">
-                      <div className="mr-6 mt-1 flex-shrink-0 bg-black text-white p-3 rounded-full">
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex"
+                    >
+                      <div className="mr-6 mt-1 flex-shrink-0 bg-white/10 text-white p-3 rounded-full">
                         {section.icon}
                       </div>
                       <div>
-                        <h2 className="text-2xl font-bold mb-4">
+                        <h2 className="text-2xl font-bold text-white mb-4">
                           {index + 1}. {section.title}
                         </h2>
-                        <p className="text-gray-700">{section.content}</p>
+                        <p className="text-gray-300 leading-relaxed">{section.content}</p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-                
-                {selectedArticle.fullContent.extendedSections && (
-                  <>
-                    <h2 className="text-2xl font-bold mt-16 mb-8 text-center">
-                      Spots photo aux alentours de Meaux
-                    </h2>
-                    <div className="space-y-12">
-                      {selectedArticle.fullContent.extendedSections.map((section, index) => (
-                        <div key={index} className="flex">
-                          <div className="mr-6 mt-1 flex-shrink-0 bg-black text-white p-3 rounded-full">
-                            {section.icon}
-                          </div>
-                          <div>
-                            <h2 className="text-2xl font-bold mb-4">
-                              {selectedArticle.fullContent.sections.length + index + 1}. {section.title}
-                            </h2>
-                            <p className="text-gray-700">{section.content}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                )}
-                
-                <div className="mt-16 p-6 bg-gray-100 rounded-lg border-l-4 border-black">
-                  <p className="text-lg">
+
+                <div className="mt-16 p-6 bg-white/5 rounded-lg border border-white/10">
+                  <p className="text-lg text-gray-200">
                     {selectedArticle.fullContent.conclusion}
                   </p>
                 </div>
-                
-                {selectedArticle.id === 1 && (
-                  <div className="mt-16 flex justify-center">
-                    <button 
-                      onClick={() => navigate('/contact')}
-                      className="bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
-                    >
-                      Me contacter pour votre mariage
-                    </button>
-                  </div>
-                )}
-                
-                {selectedArticle.id === 4 && (
-                  <div className="mt-16 flex justify-center">
-                    <button 
-                      onClick={() => navigate('/services')}
-                      className="bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
-                    >
-                      Réserver une séance photo
-                    </button>
-                  </div>
-                )}
-                
-                {selectedArticle.id === 6 && (
-                  <div className="mt-16 flex justify-center">
-                    <button 
-                      onClick={() => navigate('/contact')}
-                      className="bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
-                    >
-                      S'inscrire aux ateliers pour débutants
-                    </button>
-                  </div>
-                )}
+
+                <div className="mt-16 flex justify-center">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate('/contact')}
+                    className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+                  >
+                    Discutons de votre projet
+                  </motion.button>
+                </div>
               </div>
             </div>
           </div>
@@ -324,45 +375,84 @@ export default function BlogPreview() {
   }
 
   return (
-    <div className="min-h-screen py-20 bg-gray-50">
+    <div className="min-h-screen py-20 bg-gray-950">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold mb-6">Notre Blog</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Conseils, astuces et actualités du monde de la photographie
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Notre Blog</h1>
+          <p className="text-xl text-white/70 max-w-3xl mx-auto">
+            Articles, conseils et coulisses de la production visuelle dans le football.
           </p>
-        </div>
+        </motion.div>
 
+        {/* Category Filter */}
+        <motion.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-3 mb-16"
+        >
+          {categories.map(category => (
+            <motion.button
+              key={category}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setActiveCategory(category)}
+              className={`px-6 py-2 rounded-full font-semibold transition-all ${
+                activeCategory === category
+                  ? 'bg-white text-black'
+                  : 'bg-gray-800 text-white/70 hover:bg-gray-700'
+              }`}
+            >
+              {category}
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Articles Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <article key={post.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
+          {filteredPosts.map((post, index) => (
+            <motion.article
+              key={post.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-800 hover:border-white/20 transition-colors"
+            >
               <a href="#" onClick={(e) => {
                 e.preventDefault();
                 openArticle(post);
               }}>
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-48 overflow-hidden group">
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded-full text-sm">
+                  <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-opacity" />
+                  <div className="absolute top-4 left-4 bg-white/10 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm">
                     {post.category}
                   </div>
                 </div>
               </a>
               <div className="p-6">
-                <div className="flex items-center text-sm text-gray-500 mb-4">
+                <div className="flex items-center text-sm text-gray-400 mb-4">
                   <Calendar className="h-4 w-4 mr-2" />
                   <span>{post.date}</span>
                   <User className="h-4 w-4 ml-4 mr-2" />
                   <span>{post.author}</span>
                 </div>
-                <h2 className="text-xl font-bold mb-4">{post.title}</h2>
-                <p className="text-gray-600 mb-6">{post.excerpt}</p>
-                <a 
-                  href="#" 
-                  className="flex items-center text-black font-medium hover:text-gray-700 transition-colors"
+                <h2 className="text-lg font-bold text-white mb-3 line-clamp-2">{post.title}</h2>
+                <p className="text-gray-400 mb-6 line-clamp-2">{post.excerpt}</p>
+                <motion.a
+                  href="#"
+                  whileHover={{ x: 4 }}
+                  className="inline-flex items-center text-white font-semibold hover:text-gray-300 transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
                     openArticle(post);
@@ -370,9 +460,9 @@ export default function BlogPreview() {
                 >
                   Lire la suite
                   <ArrowRight className="h-4 w-4 ml-2" />
-                </a>
+                </motion.a>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

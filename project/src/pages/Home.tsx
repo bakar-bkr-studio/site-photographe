@@ -1,73 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ArrowDown, Instagram, Youtube, Phone, Mail, MapPin, Star, ArrowRight } from 'lucide-react';
+import { ArrowDown, Instagram, Youtube, Phone, Mail, MapPin, ArrowRight, Film, Users, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const [ref, inView] = useInView({
+  const { ref: expertiseRef, inView: expertiseInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const { ref: strategyRef, inView: strategyInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const { ref: ctaRef, inView: ctaInView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
   const navigate = useNavigate();
 
-  const heroImage = 'https://i.imgur.com/ZPGdAaK.jpeg';
-  
-  const portfolioImages = [
+  const heroImage = 'https://i.imgur.com/irwFTuH.jpeg';
+
+  const expertise = [
     {
-      src: 'https://i.imgur.com/JIjjRP2.jpeg',
-      alt: 'Photo de mariage - Couple dans un moment intime',
-      category: 'Mariage'
+      icon: Film,
+      title: 'Matchday Production',
+      description: 'Couverture intégrale de vos matchs avec des angles cinématographiques et un montage professionnel. Highlights, behind-the-scenes et contenus médias pour vos diffusions.'
     },
     {
-      src: 'https://i.imgur.com/3fFcCB1.jpeg',
-      alt: 'Portrait professionnel en studio',
-      category: 'Portrait'
+      icon: Users,
+      title: 'Academy Immersion',
+      description: 'Immersion dans le quotidien de vos académies. Documentaires sur l\'évolution des jeunes talents, visuels pour le recrutement et contenus inspirants pour vos audiences.'
     },
     {
-      src: 'https://i.imgur.com/BuP8W0m.jpeg',
-      alt: 'Photo sportive - Match de football',
-      category: 'Sport'
-    },
-    {
-      src: 'https://i.imgur.com/YAeTnOQ.jpeg',
-      alt: 'Événement culturel à Reims',
-      category: 'Événement'
-    },
-    {
-      src: 'https://i.imgur.com/REvU6Ra.jpeg',
-      alt: 'Paysage naturel',
-      category: 'Nature'
-    },
-    {
-      src: 'https://i.imgur.com/VumIUAP.jpeg',
-      alt: 'Photo d\'équipe sportive',
-      category: 'Sport'
+      icon: Zap,
+      title: 'Club Branding & Social Media',
+      description: 'Modernisation de l\'image de votre club. Contenus adaptés à chaque plateforme (TikTok, Instagram, YouTube), storytelling visuel et branding cohérent.'
     }
   ];
 
   const testimonials = [
     {
-      name: 'Oumi & Ali',
-      image: 'https://i.imgur.com/wmFZbza.jpeg',
-      text: 'Bakar a su capturer tous les moments magiques de notre mariage avec talent et discrétion. Les photos sont magnifiques et naturelles !',
-      rating: 5,
-      event: 'Mariage à Meaux'
-    },
-    {
       name: 'CS Meaux Academy',
       image: 'https://i.imgur.com/VbD673J.jpeg',
-      text: 'Un vrai professionnel qui comprend les enjeux du sport. Les photos et vidéos sont dynamiques et mettent parfaitement en valeur nos joueurs.',
+      text: 'Un vrai professionnel qui comprend les enjeux du sport. Les contenus produits mettent parfaitement en valeur notre projet de club et nos jeunes talents.',
       rating: 5,
-      event: 'Tournoi et entrainement de football'
+      event: 'Production football'
     },
     {
-      name: 'Alain',
-      image: 'https://i.imgur.com/j34Uwrg.jpeg',
-      text: 'Séance photo portrait exceptionnelle ! Bakar sait mettre à l\'aise et sublimer chaque personne qu\'il photographie.',
+      name: 'Ybengo Sport',
+      image: 'https://i.imgur.com/cusGwVF.jpeg',
+      text: 'La qualité cinématographique de la couverture de notre saison a vraiment marqué les esprits. Un partenaire de confiance pour notre club.',
       rating: 5,
-      event: 'Séance portrait'
+      event: 'Couverture saisonnière'
+    },
+    {
+      name: 'Onegoal Academy',
+      image: 'https://i.imgur.com/BuP8W0m.jpeg',
+      text: 'Les vidéos promotionnelles réalisées nous ont permis d\'améliorer notre visibilité digitale et d\'attirer de nouveaux sponsors pour notre association sportive.',
+      rating: 5,
+      event: 'Branding & communication'
     }
   ];
 
@@ -78,29 +73,29 @@ const Home = () => {
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="BKR Studio - Photographie professionnelle"
+            alt="BKR Studio - Production Football"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
         </div>
 
         <div className="relative h-full flex items-center justify-center text-center">
-          <div className="max-w-3xl px-4">
+          <div className="max-w-4xl px-4">
             <motion.h1
-              className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight"
+              className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
-              Photographe et vidéaste à Meaux et Reims
+              Football Visual Storytelling
             </motion.h1>
             <motion.p
-              className="text-xl text-white mb-8"
+              className="text-xl md:text-2xl text-gray-100 mb-8 max-w-3xl mx-auto leading-relaxed"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Je capture vos moments les plus précieux avec un style cinématographique unique
+              Nous accompagnons les clubs ambitieux dans la modernisation de leur image à travers des contenus immersifs et cinématographiques.
             </motion.p>
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -109,16 +104,16 @@ const Home = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <button
-                onClick={() => navigate('/contact')}
-                className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors"
+                onClick={() => navigate('/portfolio')}
+                className="bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-lg"
               >
-                Me contacter
+                Voir nos projets
               </button>
               <button
-                onClick={() => navigate('/portfolio')}
-                className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-medium hover:bg-white/10 transition-colors"
+                onClick={() => navigate('/contact')}
+                className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors text-lg"
               >
-                Voir mon portfolio
+                Travailler ensemble
               </button>
             </motion.div>
           </div>
@@ -133,73 +128,73 @@ const Home = () => {
         </motion.div>
       </div>
 
-      {/* Portfolio Preview Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* Strategy Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4" ref={strategyRef}>
           <motion.div
-            ref={ref}
             initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
+            animate={strategyInView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">Portfolio</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Découvrez une sélection de mes meilleures réalisations en photographie
+            <h2 className="text-4xl font-bold mb-8">Pourquoi l'image est stratégique pour un club ?</h2>
+            <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+              Dans le football moderne, l'image est un levier de croissance. <span className="font-semibold">Sponsors, recrutement, visibilité digitale, attractivité des talents</span> : un club structuré doit maîtriser sa communication visuelle.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Expertise Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4" ref={expertiseRef}>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={expertiseInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-6">Nos expertises</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Trois domaines clés pour transformer votre présence visuelle
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioImages.map((image, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-lg shadow-lg aspect-[4/3]"
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white">
-                  <p className="text-lg font-medium mb-2">{image.category}</p>
-                  <button
-                    onClick={() => navigate('/portfolio')}
-                    className="px-4 py-2 border-2 border-white rounded-full hover:bg-white hover:text-black transition-colors"
-                  >
-                    Voir plus
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <button
-              onClick={() => navigate('/portfolio')}
-              className="inline-flex items-center gap-2 bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors"
-            >
-              Voir tout le portfolio
-              <ArrowRight className="w-4 h-4" />
-            </button>
+          <div className="grid md:grid-cols-3 gap-8">
+            {expertise.map((item, index) => {
+              const IconComponent = item.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={expertiseInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow"
+                >
+                  <div className="w-14 h-14 bg-black rounded-lg flex items-center justify-center mb-6">
+                    <IconComponent className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4">{item.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
+            animate={ctaInView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">Ils me font confiance</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Découvrez les retours d'expérience de mes clients
+            <h2 className="text-4xl font-bold mb-6">Les clubs nous font confiance</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Découvrez les retours d'expérience de nos partenaires
             </p>
           </motion.div>
 
@@ -208,27 +203,22 @@ const Home = () => {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gray-50 rounded-xl p-6 shadow-sm"
+                animate={ctaInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-gray-50 rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow"
               >
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-6">
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    className="w-16 h-16 rounded-full object-cover mr-4"
+                    className="w-14 h-14 rounded-full object-cover mr-4"
                   />
                   <div>
-                    <h3 className="font-semibold">{testimonial.name}</h3>
+                    <h3 className="font-bold text-lg">{testimonial.name}</h3>
                     <p className="text-sm text-gray-500">{testimonial.event}</p>
                   </div>
                 </div>
-                <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-600 italic">"{testimonial.text}"</p>
+                <p className="text-gray-700 leading-relaxed italic">"{testimonial.text}"</p>
               </motion.div>
             ))}
           </div>
@@ -236,112 +226,106 @@ const Home = () => {
       </section>
 
       {/* Contact CTA Section */}
-      <section className="py-20 bg-black text-white">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+      <section className="py-24 bg-black text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center" ref={ctaRef}>
           <motion.div
             initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : {}}
+            animate={ctaInView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl font-bold mb-6">Prêt à capturer vos moments ?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Contactez-moi pour discuter de votre projet et obtenir un devis personnalisé
+            <h2 className="text-4xl font-bold mb-6">Transformez votre image</h2>
+            <p className="text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+              Discutons de votre projet de club et construisons ensemble une stratégie visuelle adaptée à vos ambitions.
             </p>
             <button
               onClick={() => navigate('/contact')}
-              className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors"
+              className="bg-white text-black px-10 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-lg inline-flex items-center gap-2"
             >
-              Me contacter
+              Travailler avec nous
+              <ArrowRight className="w-5 h-5" />
             </button>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-12">
             <div>
-              <h3 className="text-xl font-bold mb-4">BKR Studio</h3>
-              <p className="text-gray-400">
-                Photographe & Vidéaste professionnel
-                <br />
-                Basé à Meaux et Reims
+              <h3 className="text-2xl font-bold mb-4">BKR Studio</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Studio de création visuelle spécialisé dans la production football en Île-de-France.
               </p>
             </div>
-            
+
             <div>
-              <h3 className="text-xl font-bold mb-4">Contact</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li className="flex items-center">
-                  <Phone className="w-4 h-4 mr-2" />
-                  +33 7 67 70 23 23
+              <h3 className="text-lg font-bold mb-4">Contact</h3>
+              <ul className="space-y-3 text-gray-400">
+                <li className="flex items-start">
+                  <Phone className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" />
+                  <span>+33 7 67 70 23 23</span>
                 </li>
-                <li className="flex items-center">
-                  <Mail className="w-4 h-4 mr-2" />
-                  bkr.studio77@gmail.com
+                <li className="flex items-start">
+                  <Mail className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" />
+                  <span>bkr.studio77@gmail.com</span>
                 </li>
-                <li className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  Île de France et Grand Est
+                <li className="flex items-start">
+                  <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" />
+                  <span>Île-de-France</span>
                 </li>
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="text-xl font-bold mb-4">Services</h3>
+              <h3 className="text-lg font-bold mb-4">Expertises</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="/services#mariage" className="hover:text-white transition-colors">
-                    Mariage
+                  <a href="#expertises" className="hover:text-white transition-colors">
+                    Matchday Production
                   </a>
                 </li>
                 <li>
-                  <a href="/services#portrait" className="hover:text-white transition-colors">
-                    Portrait
+                  <a href="#expertises" className="hover:text-white transition-colors">
+                    Academy Immersion
                   </a>
                 </li>
                 <li>
-                  <a href="/services#evenement" className="hover:text-white transition-colors">
-                    Événementiel
-                  </a>
-                </li>
-                <li>
-                  <a href="/services#corporate" className="hover:text-white transition-colors">
-                    Corporate
+                  <a href="#expertises" className="hover:text-white transition-colors">
+                    Club Branding & Social
                   </a>
                 </li>
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="text-xl font-bold mb-4">Suivez-moi</h3>
+              <h3 className="text-lg font-bold mb-4">Suivez-nous</h3>
               <div className="flex space-x-4">
                 <a
                   href="https://www.instagram.com/bakar_tout_long?igsh=ZHJtNTdpczRvbXM4&utm_source=qr"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
                 >
-                  <Instagram className="w-6 h-6" />
+                  <Instagram className="w-5 h-5" />
                 </a>
                 <a
                   href="https://www.youtube.com/@BKR-STUDIO-Prod"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
                 >
-                  <Youtube className="w-6 h-6" />
+                  <Youtube className="w-5 h-5" />
                 </a>
               </div>
             </div>
           </div>
-          
+
           <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
             <p className="text-sm">
               © {new Date().getFullYear()} BKR Studio. Tous droits réservés.
             </p>
-            <div className="mt-2 space-x-4 text-sm">
+            <div className="mt-4 space-x-4 text-sm">
               <a href="/mentions-legales" className="hover:text-white transition-colors">
                 Mentions légales
               </a>

@@ -23,33 +23,53 @@ const Contact = () => {
     try {
       trackEvent('Contact', 'Soumission formulaire');
 
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      // Vérifier si les variables d'environnement Supabase sont configurées
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+      
+      if (!supabaseUrl || !supabaseKey || supabaseUrl.includes('your-project-ref') || supabaseKey.includes('your-anon-key')) {
+        // Mode démonstration - simuler un envoi réussi
+        console.log('Mode démonstration - Données du formulaire:', formData);
+        
+        // Simuler un délai d'envoi
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        trackEvent('Contact', 'Succès (Demo)');
+        setSubmitStatus({
+          type: 'success',
+          message: 'Votre message a été envoyé avec succès ! (Mode démonstration)'
+        });
+      } else {
+        // Mode production avec Supabase configuré
+        const response = await fetch(`${supabaseUrl}/functions/v1/send-contact-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify(formData),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Erreur lors de l\'envoi du message');
+        if (!response.ok) {
+          throw new Error(data.error || 'Erreur lors de l\'envoi du message');
+        }
+
+        trackEvent('Contact', 'Succès envoi');
+        setSubmitStatus({
+          type: 'success',
+          message: 'Votre message a été envoyé avec succès !'
+        });
       }
-
-      trackEvent('Contact', 'Succès envoi');
-      setSubmitStatus({
-        type: 'success',
-        message: 'Votre message a été envoyé avec succès !'
-      });
+      
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error('Error submitting form:', error);
       trackEvent('Contact', 'Erreur envoi');
       setSubmitStatus({
         type: 'error',
-        message: 'Une erreur est survenue. Veuillez réessayer.'
+        message: error instanceof Error ? error.message : 'Une erreur est survenue. Veuillez réessayer.'
       });
     } finally {
       setIsSubmitting(false);
@@ -80,6 +100,25 @@ const Contact = () => {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Nous sommes là pour répondre à toutes vos questions
           </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-12 max-w-4xl mx-auto"
+        >
+          <h2 className="text-xl font-semibold text-blue-800 mb-3">Contact direct par email</h2>
+          <p className="text-blue-700 mb-4">
+            Pour nous contacter rapidement, envoyez-nous un email directement à :
+          </p>
+          <a 
+            href="mailto:bkr.studio77@gmail.com?subject=Contact depuis le site web"
+            className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            onClick={() => handleSocialClick('Email direct')}
+          >
+            bkr.studio77@gmail.com
+          </a>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -136,6 +175,12 @@ const Contact = () => {
                 </div>
               )}
 
+              <div className="bg-gray-100 p-4 rounded-lg">
+                <p className="text-gray-600 text-center text-sm">
+                  Le formulaire de contact sera bientôt disponible. Utilisez le lien email ci-dessus pour nous contacter directement.
+                </p>
+              </div>
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                   Nom complet
@@ -146,6 +191,7 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
                 />
@@ -161,6 +207,7 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
                 />
@@ -175,6 +222,7 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
+                  disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
                 >
@@ -196,6 +244,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows={6}
+                  disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   required
                 ></textarea>
@@ -203,10 +252,10 @@ const Contact = () => {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={true}
+                className="w-full bg-gray-400 text-white py-3 px-6 rounded-lg cursor-not-allowed"
               >
-                {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                Formulaire temporairement indisponible
               </button>
             </form>
           </motion.div>

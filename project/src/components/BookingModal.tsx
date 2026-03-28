@@ -60,30 +60,54 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
     try {
       trackEvent('Réservation', `Soumission - ${packageName}`);
 
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-booking-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify({
+      // Vérifier si les variables d'environnement Supabase sont configurées
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+      
+      if (!supabaseUrl || !supabaseKey || supabaseUrl.includes('your-project-ref') || supabaseKey.includes('your-anon-key')) {
+        // Mode démonstration - simuler un envoi réussi
+        console.log('Mode démonstration - Données du formulaire:', {
           ...data,
           packageName,
           packagePrice,
-        }),
-      });
+        });
+        
+        // Simuler un délai d'envoi
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        trackEvent('Réservation', `Succès (Demo) - ${packageName}`);
+        setSubmitStatus({
+          type: 'success',
+          message: 'Votre demande a été envoyée avec succès ! (Mode démonstration)'
+        });
+      } else {
+        // Mode production avec Supabase configuré
+        const response = await fetch(`${supabaseUrl}/functions/v1/send-booking-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify({
+            ...data,
+            packageName,
+            packagePrice,
+          }),
+        });
 
-      const responseData = await response.json();
+        const responseData = await response.json();
 
-      if (!response.ok) {
-        throw new Error(responseData.error || 'Erreur lors de l\'envoi du formulaire');
+        if (!response.ok) {
+          throw new Error(responseData.error || 'Erreur lors de l\'envoi du formulaire');
+        }
+
+        trackEvent('Réservation', `Succès - ${packageName}`);
+        setSubmitStatus({
+          type: 'success',
+          message: 'Votre demande a été envoyée avec succès !'
+        });
       }
-
-      trackEvent('Réservation', `Succès - ${packageName}`);
-      setSubmitStatus({
-        type: 'success',
-        message: 'Votre demande a été envoyée avec succès !'
-      });
+      
       setTimeout(() => {
         onClose();
       }, 2000);
@@ -92,7 +116,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
       trackEvent('Réservation', `Erreur - ${packageName}`);
       setSubmitStatus({
         type: 'error',
-        message: 'Une erreur est survenue. Veuillez réessayer.'
+        message: error instanceof Error ? error.message : 'Une erreur est survenue. Veuillez réessayer.'
       });
     } finally {
       setIsSubmitting(false);
@@ -140,6 +164,19 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
                 Prix indicatif : {packagePrice}
               </p>
 
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6">
+                <h3 className="text-lg font-semibold text-blue-800 mb-2">Réservation par email</h3>
+                <p className="text-blue-700 mb-3">
+                  Pour effectuer votre réservation, veuillez nous contacter directement par email à :
+                </p>
+                <a 
+                  href="mailto:bkr.studio77@gmail.com?subject=Réservation - {packageName}&body=Bonjour,%0D%0A%0D%0AJe souhaite réserver le service : {packageName}%0D%0APrix indicatif : {packagePrice}%0D%0A%0D%0AMes informations :%0D%0A- Nom :%0D%0A- Prénom :%0D%0A- Téléphone :%0D%0A- Date souhaitée :%0D%0A%0D%0AMessage :%0D%0A"
+                  className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  bkr.studio77@gmail.com
+                </a>
+              </div>
+
               {submitStatus && (
                 <div className={`p-4 rounded-lg mb-6 ${
                   submitStatus.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
@@ -148,7 +185,16 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
                 </div>
               )}
 
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+              <div className="bg-gray-100 p-6 rounded-lg">
+                <p className="text-gray-600 text-center mb-4">
+                  Le formulaire de réservation en ligne sera bientôt disponible.
+                </p>
+                <p className="text-gray-600 text-center">
+                  En attendant, utilisez le lien email ci-dessus pour nous contacter directement.
+                </p>
+              </div>
+
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 opacity-50 pointer-events-none">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
                     Prénom *
@@ -159,6 +205,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
                     id="firstName"
                     name="firstName"
                     required
+                    disabled
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-shadow"
                   />
                 </div>
@@ -172,6 +219,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
                     id="lastName"
                     name="lastName"
                     required
+                    disabled
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-shadow"
                   />
                 </div>
@@ -186,6 +234,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
                     name="email"
                     required
                     pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
+                    disabled
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-shadow"
                   />
                 </div>
@@ -200,6 +249,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
                     name="phone"
                     required
                     pattern="[0-9]{10}"
+                    disabled
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-shadow"
                   />
                 </div>
@@ -214,6 +264,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
                     name="eventDate"
                     required
                     min={today}
+                    disabled
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-shadow"
                   />
                 </div>
@@ -226,6 +277,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
                     id="message"
                     name="message"
                     rows={4}
+                    disabled
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-shadow resize-none"
                     placeholder="Détails supplémentaires sur votre projet..."
                   ></textarea>
@@ -233,10 +285,10 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, packageNam
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={true}
+                  className="w-full bg-gray-400 text-white py-3 px-6 rounded-lg cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Envoi en cours...' : 'Confirmer la réservation'}
+                  Formulaire temporairement indisponible
                 </button>
               </form>
             </div>
